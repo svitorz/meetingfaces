@@ -50,7 +50,7 @@ new #[Layout('layouts.guest')] class extends Component
         <div class="mt-4 relative">
             <x-input-label for="password" :value="__('Senha')" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full pr-10"
+            <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full pr-10"
                             type="{{$this->tipo}}"
                             name="password"
                             required autocomplete="new-password" />
@@ -63,7 +63,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
             </button>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error :messages="$errors->get('senha')" class="mt-2" />
         </div>
 
         <!-- Remember Me -->
@@ -86,7 +86,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="ms-3" type="submit">
                 {{ __('Entrar') }}
             </x-primary-button>
         </div>

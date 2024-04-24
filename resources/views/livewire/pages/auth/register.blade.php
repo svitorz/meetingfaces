@@ -13,7 +13,7 @@ new #[Layout('layouts.guest')] class extends Component
     public string $nome = '';
     public string $email = '';
     public string $senha = '';
-    public string $password_confirmation = '';
+    public string $senha_confirmation = '';
     public string $data_nasc = '';
     public string $telefone = '';
     public string $tipo = 'password';
@@ -30,7 +30,7 @@ new #[Layout('layouts.guest')] class extends Component
             'telefone' => ['required'],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        $validated['senha'] = Hash::make($validated['senha']);
 
         event(new Registered($user = User::create($validated)));
 
@@ -54,9 +54,9 @@ new #[Layout('layouts.guest')] class extends Component
     <form wire:submit="register">
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="nome" :value="__('Nome')" />
+            <x-text-input wire:model="nome" id="nome" class="block mt-1 w-full" type="text" name="nome" required autofocus autocomplete="nome" />
+            <x-input-error :messages="$errors->get('nome')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -82,12 +82,12 @@ new #[Layout('layouts.guest')] class extends Component
 
         <!-- Password -->
         <div class="mt-4 relative">
-            <x-input-label for="password" :value="__('Senha')" />
+            <x-input-label for="senha" :value="__('Senha')" />
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full pr-10"
+            <x-text-input wire:model="senha" id="senha" class="block mt-1 w-full pr-10"
                             type="{{$this->tipo}}"
-                            name="password"
-                            required autocomplete="new-password" />
+                            name="senha"
+                            required autocomplete="new-senha" />
             <button wire:click="mostrarSenha">
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                     <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -97,16 +97,16 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
             </button>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error :messages="$errors->get('senha')" class="mt-2" />
         </div>
 
-        <!-- Confirm Password -->
+        <!-- Confirm senha -->
         <div class="mt-4 relative">
-            <x-input-label for="password_confirmation" :value="__('Confirmar senha')" />
+            <x-input-label for="senha_confirmation" :value="__('Confirmar senha')" />
 
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full pr-10"
+            <x-text-input wire:model="senha_confirmation" id="senha_confirmation" class="block mt-1 w-full pr-10"
                             type="{{$this->tipo}}"
-                            name="password_confirmation" required autocomplete="new-password" />
+                            name="senha_confirmation" required autocomplete="new-senha" />
             <button wire:click="mostrarSenha">
                 <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                     <svg class="h-6 w-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +116,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
             </button wire:click>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-error :messages="$errors->get('senha_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex items-center justify-end mt-4">
