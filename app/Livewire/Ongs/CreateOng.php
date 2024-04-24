@@ -12,6 +12,8 @@ use Livewire\Attributes\Validate;
 
 class CreateOng extends Component
 {
+    public String $title = 'Cadastrar Ong';
+    
     #[Validate('required', message:"Insira o nome da sua ONG")]
     public string $nome_completo;
     #[Validate('required|min:3', message:"Insira uma sigla para sua ONG")]

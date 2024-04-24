@@ -18,7 +18,17 @@
                     <livewire:profile.update-password-form />
                 </div>
             </div>
-
+            @if(auth()->user()->permissao == "comum")
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="max-w-xl">
+                    <a href="{{route('ongs.create')}}">
+                        <x-primary-button>
+                            Cadastre sua ONG
+                        </x-primary-button>
+                    </a>
+                </div>
+            </div>
+            @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <livewire:profile.delete-user-form />
