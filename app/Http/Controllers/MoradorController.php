@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ong;
+use App\Models\Morador;
 use Illuminate\Http\Request;
 
-class OngController extends Controller
+class MoradorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('ongs.OngDashboard');
+        //
     }
 
     /**
@@ -34,15 +34,15 @@ class OngController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ong $ong)
+    public function show(Morador $id)
     {
-        //
+        return Morador::findOrFail($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ong $ong)
+    public function edit(Morador $morador)
     {
         //
     }
@@ -50,7 +50,7 @@ class OngController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ong $ong)
+    public function update(Request $request, Morador $morador)
     {
         //
     }
@@ -58,7 +58,7 @@ class OngController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ong $ong)
+    public function destroy(Morador $morador)
     {
         //
     }
