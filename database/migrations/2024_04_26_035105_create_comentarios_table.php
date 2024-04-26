@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('comentario');
+            $table->string('comentario');
+            $table->string('situacao')->default('pendente');
             $table->foreignId('id_usuario')->constrained('users');
             $table->foreignId('id_morador')->constrained('moradores');
         });

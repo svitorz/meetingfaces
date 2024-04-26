@@ -9,12 +9,12 @@ class Show extends Component
     public Morador $morador;
     public string $title = "Show morador";
 
-    public function mount($id)
+    public function mount(int $id)
     {
         $this->morador = Morador::find($id);
     }
     public function render()
     {
-        return view('livewire.morador.show');
+        return view('livewire.morador.show',['morador' => $this->morador]);
     }
 }

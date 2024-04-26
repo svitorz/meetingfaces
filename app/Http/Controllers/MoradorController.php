@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Morador;
 use Illuminate\Http\Request;
+use Illuminate\Support\ViewErrorBag;
 
 class MoradorController extends Controller
 {
@@ -36,7 +37,7 @@ class MoradorController extends Controller
      */
     public function show(int $id)
     {
-        //
+        return view('ShowMoradorAndCreateComentario',['id'=>$id]);
     }
 
     /**

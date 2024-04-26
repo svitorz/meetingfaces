@@ -5,9 +5,9 @@
     <h2 class="text-center text-2xl font-semibold mt-3">{{$morador->nome_completo}}</h2>
     <p class="text-center text-gray-600 mt-1">Lorem</p>
     <div class="flex justify-center mt-5">
-      <p class="text-gray-500 hover:text-gray-700 mx-3">Twitter</a>
-      <p class="text-gray-500 hover:text-gray-700 mx-3">LinkedIn</a>
-      <p class="text-gray-500 hover:text-gray-700 mx-3">GitHub</p>
+      <p class="text-gray-500 hover:text-gray-700 mx-3">Cidade atual: {{$morador->cidade_atual}}</a>
+      <p class="text-gray-500 hover:text-gray-700 mx-3">Cidade natal: {{$morador->cidade_natal}}</a>
+      <p class="text-gray-500 hover:text-gray-700 mx-3">Nome de um familiar e grau de parentesco: {{$morador->nome_familiar_proximo}}, {{$morador->grau_parentesco}}</p>
     </div>
     <div class="mt-5">
       <h3 class="text-xl font-semibold">Bio</h3>
