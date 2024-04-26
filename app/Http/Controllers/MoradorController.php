@@ -34,9 +34,8 @@ class MoradorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Morador $id)
+    public function show(int $id)
     {
-        return Morador::findOrFail($id);
     }
 
     /**

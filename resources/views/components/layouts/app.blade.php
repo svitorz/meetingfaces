@@ -8,6 +8,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
+        <livewire:layout.navigation/>
         {{ $slot }}
     </body>
 </html>

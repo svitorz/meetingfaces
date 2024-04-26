@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\MoradorController;
 use App\Http\Middleware\UsuarioTemPermissao;
 use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
 use App\Livewire\Morador\Create;
-use App\Livewire\Ongs\Dashboard;
+use App\Livewire\Morador\Show;
 use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
@@ -33,10 +32,9 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
     ->middleware(UsuarioTemPermissao::class . ':admin')
     ->name('morador.create');
 
-    Route::controller(MoradorController::class)->group(function(){
-        Route::get('/show/{id}', 'show')
+        Route::get('/show/{id}', Show::class)
         ->name('morador.show');
-    });
+
 });
 
 require __DIR__.'/auth.php';
