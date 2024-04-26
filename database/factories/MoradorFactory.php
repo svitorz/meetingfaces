@@ -17,7 +17,13 @@ class MoradorFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nome_completo' => fake()->name(),
+            'cidade_atual' => fake()->city(),
+            'cidade_natal' => fake()->city(),
+            'nome_familiar_proximo' => fake()->name(),
+            'grau_parentesco' => 'Primo',
+            'data_nasc' => fake()->date(),
+            'id_ong' => 1,
         ];
     }
 }

@@ -18,7 +18,7 @@
         <div class="w-1/4 bg-gray-200 h-screen">
             <ul class="space-y-2 text-sm">
                 <li><a href="{{route('ongs.dashboard')}}" class="block p-4 text-gray-900">Home</a></li>
-                <li><a href="#" class="block p-4 text-gray-900">Listar Moradores</a></li>
+                <li><a href="{{route('morador.all')}}" class="block p-4 text-gray-900">Listar Moradores</a></li>
                 <li><a href="{{route('morador.create')}}" class="block p-4 text-gray-900">Cadastrar novo morador</a></li>
                 <li><a href="#" class="block p-4 text-gray-900">Ver comentários</a></li>
             </ul>

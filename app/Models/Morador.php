@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Morador extends Model
 {
@@ -20,4 +22,14 @@ class Morador extends Model
         'data_nasc',
         'id_ong',
     ];
+
+    public function ongs(): BelongsTo
+    {
+        return $this->belongsTo(Ong::class);
+    }
+
+    public function comentarios(): HasMany
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }

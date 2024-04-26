@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morador;
+use App\Models\Comentario;
 use Illuminate\Http\Request;
 
-class MoradorController extends Controller
+class ComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard', ['moradores' => Morador::all()]);
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class MoradorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(Comentario $comentario)
     {
         //
     }
@@ -42,7 +42,7 @@ class MoradorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Morador $morador)
+    public function edit(Comentario $comentario)
     {
         //
     }
@@ -50,7 +50,7 @@ class MoradorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Morador $morador)
+    public function update(Request $request, Comentario $comentario)
     {
         //
     }
@@ -58,7 +58,7 @@ class MoradorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Morador $morador)
+    public function destroy(Comentario $comentario)
     {
         //
     }

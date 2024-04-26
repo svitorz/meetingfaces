@@ -1,14 +1,16 @@
 <?php
 
+use App\Http\Controllers\MoradorController;
 use App\Http\Middleware\UsuarioTemPermissao;
 use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
 use App\Livewire\Morador\Create;
+use App\Livewire\Morador\ListarTodos;
 use App\Livewire\Morador\Show;
 use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [MoradorController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -34,6 +36,10 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
 
         Route::get('/show/{id}', Show::class)
         ->name('morador.show');
+
+        Route::get('/all', ListarTodos::class)
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('morador.all');
 
 });
 
