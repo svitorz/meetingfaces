@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Morador;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class ComentarioFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'comentario' => fake()->sentence(),
+            'id_morador' => Morador::factory(),
+            'id_usuario' => User::factory(),
+            'situacao' => 'aprovado'
         ];
     }
 }

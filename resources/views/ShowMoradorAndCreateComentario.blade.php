@@ -15,10 +15,14 @@
             <livewire:morador.show :id="$id" />
         </div>
         <div class="w-1/2">
-        @if (session('status'))
+        @if (session()->has('messagem'))
+
             <div class="alert alert-success">
-                {{ session('status') }}
+
+                {{ session('messagem') }}
+
             </div>
+
         @endif
             <livewire:comentario.CreateComentario :id="$id" />
         </div>

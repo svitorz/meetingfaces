@@ -4,10 +4,9 @@ use App\Http\Controllers\MoradorController;
 use App\Http\Middleware\UsuarioTemPermissao;
 use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
-use App\Livewire\Comentario\CreateComentario;
+use App\Livewire\Comentario\ComentariosPendentes;
 use App\Livewire\Morador\Create;
 use App\Livewire\Morador\ListarTodos;
-use App\Livewire\Morador\Show;
 use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
@@ -42,4 +41,9 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
         ->name('morador.all');
 
 });
+
+Route::get('/comentarios/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
+Route::get('/comentarios/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
+Route::get('/comentarios/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
+
 require __DIR__.'/auth.php';

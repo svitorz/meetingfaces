@@ -11,7 +11,7 @@ use Livewire\Component;
 class CreateComentario extends Component
 {
     #[Validate('required|max:1024')]
-    public String $comentario;
+    public String $comentario = '';
     #[Validate('required')]
     public int $id_morador;
     #[Validate('required')]
@@ -35,8 +35,8 @@ class CreateComentario extends Component
             'id_usuario' => $this->id_usuario,
             'id_morador' => $this->id_morador,
         ]);
-        session()->flash('status', 'Comentario enviado com sucesso.');   
-        return redirect()->to(route('morador.show',['id' => $this->id_morador]));
+        $this->reset('comentario');
+        session()->flash('messagem', 'Comentário enviado com sucesso! Aguarde aprovação de um dos administradores.');
     }
 
     public function render()

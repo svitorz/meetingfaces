@@ -10,8 +10,12 @@
       <p class="text-gray-500 hover:text-gray-700 mx-3">Nome de um familiar e grau de parentesco: {{$morador->nome_familiar_proximo}}, {{$morador->grau_parentesco}}</p>
     </div>
     <div class="mt-5">
-      <h3 class="text-xl font-semibold">Bio</h3>
-      <p class="text-gray-600 mt-2">John is a software engineer with over 10 years of experience in developing web and mobile applications. He is skilled in JavaScript, React, and Node.js.</p>
+      @if (isset($comentarios))
+      @foreach($comentarios as $comentario)
+      <h3 class="text-xl font-semibold"></h3>
+      <p class="text-gray-600 mt-2">{{$comentario->comentario}}</p>
+      @endforeach
+      @endif
     </div>
   </div>
 </body>
