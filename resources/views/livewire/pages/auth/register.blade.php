@@ -125,7 +125,7 @@ new #[Layout('layouts.guest')] class extends Component
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                {{ __('Registrar') }}
             </x-primary-button>
         </div>
     </form>
