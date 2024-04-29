@@ -22,7 +22,7 @@ class ComentarioFactory extends Factory
             'comentario' => fake()->sentence(),
             'id_morador' => Morador::factory(),
             'id_usuario' => User::factory(),
-            'situacao' => 'aprovado'
+            'situacao' => 'pendente'
         ];
     }
 }
