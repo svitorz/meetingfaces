@@ -5,6 +5,7 @@ namespace App\Livewire\Morador;
 use App\Models\Morador;
 use Illuminate\Routing\Redirector;
 use App\Models\Ong;
+use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -30,6 +31,12 @@ class Create extends Component
 
     public function create(): Redirector
     {   
+        $user = User::find(auth()->id());
+        
+        if($user->permissao != "admin"){
+            return abort(401);
+        }
+
         $id_morador = Morador::create([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,

@@ -6,18 +6,15 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
-
+use App\Livewire\Forms\LoginForm;
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
     public function test_login_screen_can_be_rendered(): void
     {
-        $response = $this->get('/login');
-
-        $response
-            ->assertOk()
-            ->assertSeeLivewire('pages.auth.login');
+        $teste = $this->get('/login');
+        $teste->assertSeeVolt('pages.auth.login');
     }
 
     public function test_users_can_authenticate_using_the_login_screen(): void
@@ -64,7 +61,7 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSeeLivewire('layout.navigation');
+            ->assertSeeVolt('layout.navigation');
     }
 
     public function test_users_can_logout(): void
