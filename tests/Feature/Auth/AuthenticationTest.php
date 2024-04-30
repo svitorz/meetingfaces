@@ -17,7 +17,7 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSeeVolt('pages.auth.login');
+            ->assertSeeLivewire('pages.auth.login');
     }
 
     public function test_users_can_authenticate_using_the_login_screen(): void
@@ -64,7 +64,7 @@ class AuthenticationTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSeeVolt('layout.navigation');
+            ->assertSeeLivewire('layout.navigation');
     }
 
     public function test_users_can_logout(): void
