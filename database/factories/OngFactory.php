@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ong>
  */
@@ -34,7 +34,7 @@ class OngFactory extends Factory
             'bairro' => 'Centro',
             'estado' => 'SP',
             'pais' => 'Brasil',
-            'id_usuario' => 1,
+            'id_usuario' => User::class::factory(),
         ];
     }
 }

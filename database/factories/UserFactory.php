@@ -34,6 +34,23 @@ class UserFactory extends Factory
             'telefone' => fake()->phoneNumber(),
         ];
     }
+    /**
+     * Função para determinar o nivel de permissao de um usuario criado nas factory's
+     */
+    public function admin(): static
+    {
+        return $this->state([
+                'permissao' => 'admin'
+        ]);
+    }
+
+    public function comum(): static
+    {
+        return $this->state([
+                'permissao' => 'comum'
+        ]);
+    }
+
 
     /**
      * Indicate that the model's email address should be unverified.

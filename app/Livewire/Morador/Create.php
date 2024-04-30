@@ -22,10 +22,10 @@ class Create extends Component
     
     public string $grau_parentesco;
     public string $data_nasc;
-    public int $id_ong;
+    public $id_ong;
     public function __construct()
     {
-        $this->id_ong = Ong::select('id')->where('id_usuario','=',auth()->id())->first()->id;
+        $this->id_ong = Ong::select('id')->where('id_usuario','=',auth()->id())->first();
     } 
 
 

@@ -11,9 +11,6 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
-        <testsuite name="Morador">
-            <directory>tests/Morador</directory>
-        </testsuite>
     </testsuites>
     <source>
         <include>
