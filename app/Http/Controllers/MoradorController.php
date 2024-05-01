@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Morador;
+use App\Models\Ong;
 use Illuminate\Http\Request;
 use Illuminate\Support\ViewErrorBag;
 
@@ -13,7 +14,7 @@ class MoradorController extends Controller
      */
     public function index()
     {
-        return view('dashboard', ['moradores' => Morador::all()]);
+        return view('dashboard', ['moradores' => Morador::simplePaginate(12)]);
     }
 
     /**
@@ -58,9 +59,22 @@ class MoradorController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * FIXME: Adicionar verificações antes de excluir um morador.
      */
-    public function destroy(Morador $morador)
-    {
-        //
+    public function destroy(int $id)
+    { 
+        if(auth()->check()){
+            $ong = Ong::where('id_usuario','=',auth()->id())->first();
+            if($ong);{
+                $morador = Morador::findOrFail($id);
+                $ong->get();
+                if($morador->id_ong == $ong->id){
+                    $morador->delete();
+                    session()->flash('msg','Cadastro de morador excluído com sucesso!');
+                    return redirect()->to(route('dashboard'));
+                }
+            } 
+        }
+        return abort(401);
     }
 }

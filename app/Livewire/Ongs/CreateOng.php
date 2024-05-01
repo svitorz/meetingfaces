@@ -8,6 +8,7 @@ use App\Models\Ong;
 use App\Models\User;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 
 class CreateOng extends Component
@@ -50,6 +51,7 @@ class CreateOng extends Component
     #[Validate('required')]
     public string $pais;
     #[Validate('max:1')]
+
     public int $id_usuario;
 
 
@@ -57,10 +59,24 @@ class CreateOng extends Component
     {
         $this->id_usuario = Auth::id();
     }
+    
+    public function boot():void
+    {
+        $hasIdOnOngs = DB::table('ongs')->where('id_usuario','=',$this->id_usuario)->exists();
+        if($hasIdOnOngs){
+            abort(401);
+        }
+    }
 
     public function create(): Redirector  // não tem erro   
     {
         $validated = $this->validate();
+        /* FIXME: Adicionar um método para voltar aos inputs que possuem erros. */
+        if ($this->getErrorBag()->isNotEmpty()) {
+            $this->setErrorBag($this->errors);
+            $this->dispatchBrowserEvent('error-scroll');
+        }
+
         if($validated !== null){
             Ong::create($validated);
             User::where('id','=',auth()->id())->update(['permissao' => 'admin']);

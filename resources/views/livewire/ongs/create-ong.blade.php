@@ -1,4 +1,4 @@
-<div class="container-fluid p-10 m-10">
+<div class="container-fluid p-10 m-10" wire:ignore>
 <x-auth-session-status class="mb-4" :status="session('status')" />
      <form x-data="{ formStep: 1 }" class="space-y-2" wire:submit="create">
         <div x-cloak x-show="formStep === 1">
@@ -80,6 +80,7 @@
                 <x-text-input wire:model="cidade" id="cidade" class="block mt-1 w-full" type="text" name="cidade" />
                 <x-input-error :messages="$errors->get('cidade')" class="mt-2" />
             </div>
+            <!-- FIXME: Verificar para que serve esse id_usuario -->
             <input type="hidden" name="id_usuario" value="">
             <div>
                 <x-input-label for="bairro" :value="__('Bairro')"/>

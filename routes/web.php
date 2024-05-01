@@ -6,7 +6,10 @@ use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
 use App\Livewire\Comentario\ComentariosPendentes;
 use App\Livewire\Morador\Create;
+use App\Livewire\Morador\EditMorador;
 use App\Livewire\Morador\ListarTodos;
+use App\Models\Morador;
+use App\Models\Ong;
 use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
@@ -34,16 +37,25 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
     ->middleware(UsuarioTemPermissao::class . ':admin')
     ->name('morador.create');
 
-        Route::get('/show/{id}', [MoradorController::class, 'show'])->name('morador.show');
+        Route::get('/show/{id}', [MoradorController::class, 'show'])
+        ->name('morador.show');
 
         Route::get('/all', ListarTodos::class)
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.all');
 
+        Route::get('/edit/{id}', Create::class)
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('morador.edit');
+
+        Route::get('/destroy/{id}', [MoradorController::class,'destroy'])
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('morador.destroy');
 });
+
 
 Route::get('/comentarios/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
 Route::get('/comentarios/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
-Route::get('/comentarios/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
+Route::get('/comentarios/excluir    /{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
 
 require __DIR__.'/auth.php';

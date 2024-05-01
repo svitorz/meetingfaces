@@ -16,8 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string('comentario');
             $table->string('situacao')->default('pendente');
-            $table->foreignId('id_usuario')->constrained('users');
-            $table->foreignId('id_morador')->constrained('moradores');
+            $table->foreignId('id_usuario')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('id_morador')->constrained('moradores')->cascadeOnDelete();
         });
     }
 

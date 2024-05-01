@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comentario;
+use App\Models\Morador;
 use App\Models\User;
 use App\Models\Ong;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'telefone' => '(17) 98126-7735',
             'permissao' => 'admin',
         ]);
+        
 
         Ong::factory()->create([
             'nome_completo' => 'Instituição Meeting Faces',
@@ -46,5 +49,8 @@ class DatabaseSeeder extends Seeder
             'pais' => 'Brasil',
             'id_usuario' => 1,
         ]);
+
+        Morador::factory(10)->create();
+        Comentario::factory(20)->create();
     }
 }

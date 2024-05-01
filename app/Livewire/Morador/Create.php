@@ -13,31 +13,66 @@ class Create extends Component
 {
     #[Validate('max:50', message:"Tamanho máximo de 50 caracteres")]
     public string $nome_completo;
+
     #[Validate('max:100', message:"Tamanho máximo de 100 caracteres")]
     public string $cidade_atual;
+    
     #[Validate('max:100', message:"Tamanho máximo de 100 caracteres")]
     public string $cidade_natal;
+    
     #[Validate('max:50', message:"Tamanho máximo de 50 caracteres")]
     public string $nome_familiar_proximo;
-    
     public string $grau_parentesco;
     public string $data_nasc;
-    public $id_ong;
+    protected $id_ong;
+    protected Morador $morador;
+    public bool $editing = false;
+    public int $id_morador;
     public function __construct()
     {
-        $this->id_ong = Ong::select('id')->where('id_usuario','=',auth()->id())->first();
-    } 
+        $this->morador = new Morador;
+        $this->id_ong = Ong::select('id')->where('id_usuario','=',auth()->id())->first()->id;
 
-
-    public function create(): Redirector
-    {   
         $user = User::find(auth()->id());
-        
         if($user->permissao != "admin"){
             return abort(401);
         }
 
-        $id_morador = Morador::create([
+    } 
+
+    public function mount($id=null):void
+    {
+        if(isset($id)&&!empty($id)){
+            $this->morador = Morador::findOrFail($id);
+
+            $this->id_morador = $this->morador->id;
+            $this->nome_completo = $this->morador->nome_completo;
+            $this->cidade_atual = $this->morador->cidade_atual;
+            $this->cidade_natal = $this->morador->cidade_natal;
+            $this->nome_familiar_proximo = $this->morador->nome_familiar_proximo;
+            $this->grau_parentesco = $this->morador->grau_parentesco;
+            $this->data_nasc = $this->morador->data_nasc; 
+            $this->editing = true;
+        }
+    }
+
+    public function update(): Redirector
+    {
+        $this->morador::where('id','=',$this->id_morador)->update([
+            'nome_completo' => $this->nome_completo,
+            'cidade_atual' => $this->cidade_atual,
+            'cidade_natal' => $this->cidade_natal,
+            'nome_familiar_proximo' => $this->nome_familiar_proximo,
+            'grau_parentesco' => $this->grau_parentesco,
+            'data_nasc' => $this->data_nasc
+        ]);
+        session()->flash('msg', 'Cadastro atualizado com sucesso.');
+ 
+        return redirect()->to(route('morador.show', ['id' => $this->id_morador]));
+    }
+    public function create(): Redirector
+    {   
+        $id = Morador::create([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,
             'cidade_natal' => $this->cidade_natal,
@@ -47,7 +82,7 @@ class Create extends Component
             'id_ong' => $this->id_ong,
         ]);
 
-        return redirect()->route('morador.show', ['id' => $id_morador]);
+        return redirect()->route('morador.show', ['id' => $id]);
     }
     public function render()
     {
