@@ -72,10 +72,10 @@ class CreateOng extends Component
     {
         $validated = $this->validate();
         /* FIXME: Adicionar um método para voltar aos inputs que possuem erros. */
-        if ($this->getErrorBag()->isNotEmpty()) {
+        /* if ($this->getErrorBag()->isNotEmpty()) {
             $this->setErrorBag($this->errors);
             $this->dispatchBrowserEvent('error-scroll');
-        }
+        } */
 
         if($validated !== null){
             Ong::create($validated);

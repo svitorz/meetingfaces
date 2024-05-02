@@ -56,6 +56,6 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
 
 Route::get('/comentarios/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
 Route::get('/comentarios/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
-Route::get('/comentarios/excluir    /{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
+Route::get('/comentarios/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
 
 require __DIR__.'/auth.php';

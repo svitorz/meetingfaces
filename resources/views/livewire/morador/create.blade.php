@@ -6,10 +6,12 @@
         @endif
         method="post" 
         class="p-10 m-10"
-    >        
+    >
+        @if($this->editing)        
         <div>
             <x-text-input type="text" type="hidden" name="id_morador" value="{{$this->id_morador}}" />
         </div>
+        @endif
         <div>
             <x-input-label for="nome_completo" :value="__('Nome completo')"/>
             <x-text-input wire:model="nome_completo" id="nome_completo" class="block mt-1 w-full" type="text" name="nome_completo" />
