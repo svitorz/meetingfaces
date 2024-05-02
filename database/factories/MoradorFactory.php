@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Ong;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Morador>
  */
@@ -23,7 +23,7 @@ class MoradorFactory extends Factory
             'nome_familiar_proximo' => fake()->name(),
             'grau_parentesco' => 'Primo',
             'data_nasc' => fake()->date(),
-            'id_ong' => 1,
+            'id_ong' => Ong::all()->random()->id,
         ];
     }
 }

@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'telefone' => '(17) 98126-7735',
             'permissao' => 'admin',
         ]);
-        
+        Ong::factory(1)->create();
 
         Ong::factory()->create([
             'nome_completo' => 'Instituição Meeting Faces',

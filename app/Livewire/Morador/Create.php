@@ -45,6 +45,19 @@ class Create extends Component
         if(isset($id)&&!empty($id)){
             $this->morador = Morador::findOrFail($id);
 
+            /**
+             * Método para permitir que apenas usuários administradores da ong 
+             * que o morador pertence possam editar seu registro. 
+             * */
+            $ong = Ong::where('id_usuario','=',auth()->id())
+            ->where('id','=',$this->morador->id_ong)
+            ->exists();
+
+            if(!$ong){
+                abort(401);
+            }
+            
+
             $this->id_morador = $this->morador->id;
             $this->nome_completo = $this->morador->nome_completo;
             $this->cidade_atual = $this->morador->cidade_atual;

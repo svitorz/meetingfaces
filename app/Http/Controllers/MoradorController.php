@@ -63,18 +63,20 @@ class MoradorController extends Controller
      */
     public function destroy(int $id)
     { 
-        if(auth()->check()){
-            $ong = Ong::where('id_usuario','=',auth()->id())->first();
-            if($ong);{
-                $morador = Morador::findOrFail($id);
-                $ong->get();
-                if($morador->id_ong == $ong->id){
-                    $morador->delete();
-                    session()->flash('msg','Cadastro de morador excluído com sucesso!');
-                    return redirect()->to(route('dashboard'));
-                }
-            } 
+        $morador = Morador::findOrFail($id);
+        /**
+         * Método para permitir que apenas usuários administradores da ong 
+         * que o morador pertence possam editar seu registro. 
+         * */
+        $ong = Ong::where('id_usuario','=',auth()->id())
+        ->where('id','=',$morador->id_ong)
+        ->exists();
+        if(!$ong){
+            abort(401);
         }
-        return abort(401);
+
+        $morador->delete();
+        session()->flash('msg','Cadastro de morador excluído com sucesso!');
+        return redirect()->to(route('dashboard'));
     }
 }

@@ -20,8 +20,8 @@ class ComentarioFactory extends Factory
     {
         return [
             'comentario' => fake()->sentence(),
-            'id_morador' => Morador::factory(),
-            'id_usuario' => User::factory(),
+            'id_morador' => Morador::all()->random()->id,
+            'id_usuario' => User::all()->random()->id,
             'situacao' => 'pendente'
         ];
     }

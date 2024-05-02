@@ -1,7 +1,6 @@
 <body class="bg-gray-100">
   <div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5">
-    <!-- TODO: Adicionar uma verificação para que apenas adminstradores
-     que sejam donos da ONG e cadastrantes possam ver os botões de editar e excluir -->
+    @if($this->isAdmin)
   <div class="flex justify-end">
     <div
         x-data="{
@@ -60,6 +59,7 @@
         </div>
     </div>
   </div>
+  @endif
     <img class="w-32 h-32 rounded-full mx-auto" src="" alt="Profile picture" />
     <h2 class="text-center font-semibold my-4">
       {{$morador->nome_completo}}
