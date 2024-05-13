@@ -5,7 +5,7 @@ use App\Http\Middleware\UsuarioTemPermissao;
 use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
 use App\Livewire\Comentario\ComentariosPendentes;
-use App\Livewire\Morador\Create;
+use App\Livewire\Morador\CreateMorador;
 use App\Livewire\Morador\EditMorador;
 use App\Livewire\Morador\ListarTodos;
 use App\Models\Morador;
@@ -21,19 +21,19 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::prefix('/ongs')->group(function(){   
+Route::prefix('/ongs')->group(function(){
     Route::get('/create', CreateOng::class)
         ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
         ->name('ongs.create');
 
         Route::get('/dashboard', [OngController::class,'index'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
-                ->name('ongs.dashboard');    
+                ->name('ongs.dashboard');
 });
 
 Route::prefix('/moradores')->middleware('auth')->group(function(){
-    
-    Route::get('/create', Create::class)
+
+    Route::get('/create', CreateMorador::class)
     ->middleware(UsuarioTemPermissao::class . ':admin')
     ->name('morador.create');
 
@@ -44,7 +44,7 @@ Route::prefix('/moradores')->middleware('auth')->group(function(){
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.all');
 
-        Route::get('/edit/{id}', Create::class)
+        Route::get('/edit/{id}', CreateMorador::class)
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.edit');
 

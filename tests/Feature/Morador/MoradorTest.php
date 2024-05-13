@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Morador;
 
-use App\Livewire\Morador\Create;
+use App\Livewire\Morador\CreateMorador;
 use App\Models\Morador;
 use App\Models\User;
 use App\Models\Ong;
@@ -26,13 +26,13 @@ class MoradorTest extends TestCase
         $response = $this->get('/moradores/create');
 
         $response
-            ->assertOK()  
+            ->assertOK()
             ->assertSeeVolt('morador.create');
     }
 
     /**
      * Teste nos níveis de permissão com Middleware
-     *   
+     *
      * */
     public function test_comum_users_canot_access_create():void
     {
@@ -51,23 +51,49 @@ class MoradorTest extends TestCase
     public function test_moradores_can_be_created():void
     {
         $user = User::factory()->admin()->create();
-        $ong = Ong::factory()->create();
-        
+        $ong = Ong::factory()->create()->value('id');
+
         $componente = Livewire::
                     actingAs($user)
-                    ->test(create::class)
+                    ->test(CreateMorador::class)
                     ->set('nome_completo','Nome Teste')
                     ->set('data_nasc',date('d/M/Y',strtotime('01/01/1990')))
                     ->set('cidade_natal','Cidade teste')
                     ->set('cidade_atual','Cidade Teste')
                     ->set('nome_familiar_proximo','Nome teste')
                     ->set('grau_parentesco','Pai')
-                    ->set('id_ong',$ong->id);
+                    ->set('id_ong',$ong);
 
         $componente->call('create');
 
         $morador = Morador::latest('id')->first();
-        
+
+        $componente->assertRedirect("/moradores/show/$morador->id");
+    }
+
+    /*
+     * Teste para determinar se um morador pode ser editado
+    */
+    public function test_morador_can_be_editated():void
+    {
+        $user = User::factory()->admin()->create();
+        $ong = Ong::factory()->create()->value('id');
+        $morador = Morador::factory()->create()->value('id');
+
+        $componente = Livewire::actingAs($user)
+                    ->test(CreateMorador::class,['id' => $morador])
+                    ->set('nome_completo','Nome Update')
+                    ->set('data_nasc',date('d/M/Y',strtotime('01/01/1990')))
+                    ->set('cidade_natal','Cidade Update')
+                    ->set('cidade_atual','Cidade Update')
+                    ->set('nome_familiar_proximo','Nome Update')
+                    ->set('grau_parentesco','Pai')
+                    ->set('id_ong',$ong);
+
+        $componente->call('update');
+
+        $morador = Morador::latest('id')->first();
+
         $componente->assertRedirect("/moradores/show/$morador->id");
     }
 }

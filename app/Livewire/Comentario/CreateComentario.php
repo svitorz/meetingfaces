@@ -26,7 +26,7 @@ class CreateComentario extends Component
     public function mount(int $id)
     {
         $this->id_morador = $id;
-         
+
     }
     public function create()
     {
@@ -35,8 +35,8 @@ class CreateComentario extends Component
             'id_usuario' => $this->id_usuario,
             'id_morador' => $this->id_morador,
         ]);
-        $this->reset('comentario');
         session()->flash('messagem', 'Comentário enviado com sucesso! Aguarde aprovação de um dos administradores.');
+        $this->reset('comentario');
     }
 
     public function render()
