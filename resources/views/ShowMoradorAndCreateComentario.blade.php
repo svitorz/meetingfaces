@@ -18,9 +18,7 @@
         @if (session()->has('messagem'))
 
             <div class="alert alert-success">
-
                 {{ session('messagem') }}
-
             </div>
 
         @endif
