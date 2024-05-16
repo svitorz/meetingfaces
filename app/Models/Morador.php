@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Morador extends Model
 {
     use HasFactory;
-    
+
     public $table = 'moradores';
 
     protected $fillable = [

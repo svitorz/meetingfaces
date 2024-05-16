@@ -11,22 +11,21 @@ use Livewire\Component;
 
 class CreateMorador extends Component
 {
-    #[Validate('max:50', message:"Tamanho máximo de 50 caracteres")]
-    public string $nome_completo;
+    #[Validate('max:50', message: "Tamanho máximo de 50 caracteres")]
+    public $nome_completo;
 
-    #[Validate('max:100', message:"Tamanho máximo de 100 caracteres")]
-    public string $cidade_atual;
+    #[Validate('max:100', message: "Tamanho máximo de 100 caracteres")]
+    public $cidade_atual;
 
-    #[Validate('max:100', message:"Tamanho máximo de 100 caracteres")]
-    public string $cidade_natal;
+    #[Validate('max:100', message: "Tamanho máximo de 100 caracteres")]
+    public $cidade_natal;
 
-    #[Validate('max:50', message:"Tamanho máximo de 50 caracteres")]
-    public string $nome_familiar_proximo;
+    #[Validate('max:50', message: "Tamanho máximo de 50 caracteres")]
+    public $nome_familiar_proximo;
 
+    public $grau_parentesco;
 
-    public string $grau_parentesco;
-
-    public string $data_nasc;
+    public $data_nasc;
 
     public $id_ong;
 
@@ -39,28 +38,23 @@ class CreateMorador extends Component
     public function __construct()
     {
         $this->morador = new Morador;
-        $this->id_ong = Ong::select('id')->where('id_usuario','=',auth()->id())->value('id');
-
-        $user = User::find(auth()->id());
-        if($user->permissao != "admin"){
-            return abort(401);
-        }
-
     }
 
-    public function mount($id=null):void
+    public function mount($id = null): void
     {
-        if(isset($id)&&!empty($id)){
+        $this->id_ong = Ong::select('id')->where('id_usuario', '=', auth()->id())->value('id');
+
+        if (isset($id) && !empty($id)) {
             $this->morador = Morador::findOrFail($id);
             /**
              * Método para permitir que apenas usuários administradores da ong
              * que o morador pertence possam editar seu registro.
              * */
-            $ong = Ong::where('id_usuario','=',auth()->id())
-            ->where('id','=',$this->morador->id_ong)
-            ->exists();
+            $ong = Ong::where('id_usuario', '=', auth()->id())
+                ->where('id', '=', $this->morador->id_ong)
+                ->exists();
 
-            if(!$ong){
+            if (!$ong) {
                 abort(401);
             }
 
@@ -77,7 +71,7 @@ class CreateMorador extends Component
 
     public function update(): Redirector
     {
-        $this->morador::where('id','=',$this->id_morador)->update([
+        $this->morador::where('id', '=', $this->id_morador)->update([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,
             'cidade_natal' => $this->cidade_natal,
@@ -92,7 +86,9 @@ class CreateMorador extends Component
 
     public function create(): Redirector
     {
-        $id = Morador::create([
+        $this->validate();
+
+        $id = $this->morador::create([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,
             'cidade_natal' => $this->cidade_natal,
@@ -106,8 +102,13 @@ class CreateMorador extends Component
     }
     public function render()
     {
+        $user = User::find(auth()->id());
+        if ($user->permissao != "admin") {
+            return abort(401);
+        }
+
         return view('livewire.morador.create')
-        ->extends('templates.template')
-        ->slot('content');
+            ->extends('templates.template')
+            ->slot('content');
     }
 }
