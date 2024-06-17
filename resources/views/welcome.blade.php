@@ -16,6 +16,7 @@
 
   <title>{{config('APP_NAME','Meeting Faces')}}</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 
   <style>
     .ly {
@@ -35,7 +36,8 @@
   </style>
 </head> 
 <body class="ly">
-    @livewire('layout.navigation')
+  <livewire:layout.navigation />
+
   <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"

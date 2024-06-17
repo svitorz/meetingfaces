@@ -21,7 +21,7 @@
                     @foreach ($moradores as $morador)
                         <div class="col">
                             <div>
-                                <a href="morador.php"
+                                <a href="{{ route('morador.show', ['id' => $morador->id])}}"
                                     class="shadow-sm link-underline link-underline-opacity-0 border border-tertiary radius btn btn-outline-dark p-3 "
                                     style="height:95px; width:360px;" type="button">
                                     <h4 class="card-text">{{ $morador->nome_completo }}</h4>

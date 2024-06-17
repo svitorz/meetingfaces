@@ -14,7 +14,7 @@ class MoradorController extends Controller
      */
     public function index()
     {
-        $moradores = Morador::select(['nome_completo', 'cidade_atual'])->paginate(12);
+        $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])->paginate(12);
         return view('dashboard', ['moradores' => $moradores]);
     }
 

@@ -13,22 +13,22 @@ use Livewire\Attributes\Validate;
 
 class CreateOng extends Component
 {
-    public String $title = 'Cadastrar Ong';
-    
-    #[Validate('required', message:"Insira o nome da sua ONG")]
+    public string $title = 'Cadastrar Ong';
+
+    #[Validate('required', message: "Insira o nome da sua ONG")]
     public string $nome_completo;
-    #[Validate('required|min:3', message:"Insira uma sigla para sua ONG")]
+    #[Validate('required|min:3', message: "Insira uma sigla para sua ONG")]
     public string $sigla;
     #[Validate('max:256')]
     public string $parcerias;
 
-    #[Validate('required', message:"Insira a data de fundação da sua ONG")]
+    #[Validate('required', message: "Insira a data de fundação da sua ONG")]
     public string $data_fundacao;
     #[Validate('required')]
     public string $tipo_organizacao;
-    #[Validate('required', message:"Insira uma descrição sobre sua ONG")]
+    #[Validate('required', message: "Insira uma descrição sobre sua ONG")]
     public string $descricao;
-    #[Validate('required', message:"Insira o CNPJ da sua ONG")]
+    #[Validate('required', message: "Insira o CNPJ da sua ONG")]
     public string $cnpj;
     #[Validate('required')]
     public string $email;
@@ -59,11 +59,11 @@ class CreateOng extends Component
     {
         $this->id_usuario = Auth::id();
     }
-    
-    public function boot():void
+
+    public function boot(): void
     {
-        $hasIdOnOngs = DB::table('ongs')->where('id_usuario','=',$this->id_usuario)->exists();
-        if($hasIdOnOngs){
+        $hasIdOnOngs = DB::table('ongs')->where('id_usuario', '=', $this->id_usuario)->exists();
+        if ($hasIdOnOngs) {
             abort(401);
         }
     }
@@ -77,14 +77,14 @@ class CreateOng extends Component
             $this->dispatchBrowserEvent('error-scroll');
         } */
 
-        if($validated !== null){
+        if ($validated !== null) {
             Ong::create($validated);
-            User::where('id','=',auth()->id())->update(['permissao' => 'admin']);
+            User::where('id', '=', auth()->id())->update(['permissao' => 'admin']);
         }
         return redirect()->route('dashboard');
     }
     public function render()
     {
-        return view('livewire.ongs.create-ong');
+        return view('livewire.ongs.create-ong')->extends('templates.template')->slot('content');
     }
 }

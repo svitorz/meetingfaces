@@ -8,6 +8,7 @@ use App\Livewire\Comentario\ComentariosPendentes;
 use App\Livewire\Morador\CreateMorador;
 use App\Livewire\Morador\EditMorador;
 use App\Livewire\Morador\ListarTodos;
+use App\Livewire\Ongs\Doacao;
 use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::prefix('/ongs')->group(function () {
     Route::get('/dashboard', [OngController::class, 'index'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('ongs.dashboard');
+
+    Route::get('/doacao', Doacao::class)->name('ongs.doacao');
 });
 
 Route::prefix('/moradores')->middleware('auth')->group(function () {
