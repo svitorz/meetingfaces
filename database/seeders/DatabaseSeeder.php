@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
             'nome' => 'Vitor Souza',
             'email' => 'vitor@gmail.com',
             'password' => Hash::make('12345678'),
-            'data_nasc' => '07/08/2006',
-            'telefone' => '(17) 98126-7735',
+            'data_nasc' => '01/01/2001',
+            'telefone' => '(11) 11111-1111',
             'permissao' => 'admin',
         ]);
 

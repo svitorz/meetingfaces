@@ -11,7 +11,8 @@ use App\Livewire\Morador\ListarTodos;
 use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Support\Facades\Route;
-Route::view('/', 'welcome');
+
+Route::view('/', 'welcome')->name('welcome');
 
 Route::get('dashboard', [MoradorController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -21,34 +22,34 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::prefix('/ongs')->group(function(){
+Route::prefix('/ongs')->group(function () {
     Route::get('/create', CreateOng::class)
         ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
         ->name('ongs.create');
 
-        Route::get('/dashboard', [OngController::class,'index'])
+    Route::get('/dashboard', [OngController::class, 'index'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
-                ->name('ongs.dashboard');
+        ->name('ongs.dashboard');
 });
 
-Route::prefix('/moradores')->middleware('auth')->group(function(){
+Route::prefix('/moradores')->middleware('auth')->group(function () {
 
     Route::get('/create', CreateMorador::class)
-    ->middleware(UsuarioTemPermissao::class . ':admin')
-    ->name('morador.create');
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('morador.create');
 
-        Route::get('/show/{id}', [MoradorController::class, 'show'])
+    Route::get('/show/{id}', [MoradorController::class, 'show'])
         ->name('morador.show');
 
-        Route::get('/all', ListarTodos::class)
+    Route::get('/all', ListarTodos::class)
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.all');
 
-        Route::get('/edit/{id}', CreateMorador::class)
+    Route::get('/edit/{id}', CreateMorador::class)
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.edit');
 
-        Route::get('/destroy/{id}', [MoradorController::class,'destroy'])
+    Route::get('/destroy/{id}', [MoradorController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.destroy');
 });
@@ -58,4 +59,4 @@ Route::get('/comentarios/pendentes', ComentariosPendentes::class)->name('comenta
 Route::get('/comentarios/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
 Route::get('/comentarios/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

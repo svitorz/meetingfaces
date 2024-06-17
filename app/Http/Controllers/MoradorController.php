@@ -14,7 +14,8 @@ class MoradorController extends Controller
      */
     public function index()
     {
-        return view('dashboard', ['moradores' => Morador::simplePaginate(12)]);
+        $moradores = Morador::select(['nome_completo', 'cidade_atual'])->paginate(12);
+        return view('dashboard', ['moradores' => $moradores]);
     }
 
     /**
@@ -38,7 +39,7 @@ class MoradorController extends Controller
      */
     public function show(int $id)
     {
-        return view('ShowMoradorAndCreateComentario',['id'=>$id]);
+        return view('ShowMoradorAndCreateComentario', ['id' => $id]);
     }
 
     /**
@@ -62,21 +63,21 @@ class MoradorController extends Controller
      * FIXME: Adicionar verificações antes de excluir um morador.
      */
     public function destroy(int $id)
-    { 
+    {
         $morador = Morador::findOrFail($id);
         /**
          * Método para permitir que apenas usuários administradores da ong 
          * que o morador pertence possam editar seu registro. 
          * */
-        $ong = Ong::where('id_usuario','=',auth()->id())
-        ->where('id','=',$morador->id_ong)
-        ->exists();
-        if(!$ong){
+        $ong = Ong::where('id_usuario', '=', auth()->id())
+            ->where('id', '=', $morador->id_ong)
+            ->exists();
+        if (!$ong) {
             abort(401);
         }
 
         $morador->delete();
-        session()->flash('msg','Cadastro de morador excluído com sucesso!');
+        session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
         return redirect()->to(route('dashboard'));
     }
 }
