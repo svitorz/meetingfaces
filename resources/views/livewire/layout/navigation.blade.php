@@ -14,7 +14,7 @@ new class extends Component {
         $this->redirect('/', navigate: true);
     }
 }; ?>
-
+<div>
 <header class="py-3 text-bg-white" style="width: auto;height: 9.375em;">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-around ">
@@ -87,7 +87,7 @@ new class extends Component {
                         @endif
 
                         <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
+                        <button wire:click="logout();"  type="button"  class="w-full text-start">
                             <x-dropdown-link>
                                 {{ __('Sair') }}
                             </x-dropdown-link>
@@ -98,3 +98,4 @@ new class extends Component {
             </div>
         </div>
 </header>
+</div>

@@ -17,10 +17,19 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireScripts
 </head>
 
-<body class="">
+<body>
+    <livewire:layout.navigation />  
+    <div class="ly d-flex align-items-center py-4 bg-body-white">
+        <div class="form-signin w-100 m-auto ">
+            <a href="/" wire:navigate>
+                <img class="mx-auto d-block mt-5" src="{{ asset('img/logo2.png') }}" alt="dois rostos encostados" />
+            </a>
             {{ $slot }}
+        </div>
+    </div>
 </body>
 
 </html>

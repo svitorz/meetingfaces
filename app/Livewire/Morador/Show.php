@@ -17,26 +17,26 @@ class Show extends Component
     public function mount(int $id)
     {
         $this->morador = Morador::find($id);
-        
+
         $this->comentarios = DB::table('comentarios')
-        ->select('comentario')
-        ->where('situacao','=','aprovado')
-        ->where('id_morador','=',$this->morador->id)
-        ->get();
+            ->select('comentario')
+            ->where('situacao', '=', 'aprovado')
+            ->where('id_morador', '=', $this->morador->id)
+            ->get();
 
-        $ong = Ong::where('id_usuario','=',auth()->id())
-                    ->where('id','=',$this->morador->id_ong)
-                    ->exists();
+        $ong = Ong::where('id_usuario', '=', auth()->id())
+            ->where('id', '=', $this->morador->id_ong)
+            ->exists();
 
-        if($ong){
+        if ($ong) {
             $this->isAdmin = true;
-        }else{
+        } else {
             $this->isAdmin = false;
         }
     }
-    
+
     public function render()
     {
-        return view('livewire.morador.show',['morador' => $this->morador]);
+        return view('livewire.morador.show', ['morador' => $this->morador])->extends('templates.template')->slot('content');
     }
 }

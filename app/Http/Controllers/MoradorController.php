@@ -39,7 +39,7 @@ class MoradorController extends Controller
      */
     public function show(int $id)
     {
-        return view('ShowMoradorAndCreateComentario', ['id' => $id]);
+        //
     }
 
     /**

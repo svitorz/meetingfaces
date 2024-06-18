@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MoradorController;
 use App\Http\Middleware\UsuarioTemPermissao;
+use App\Livewire\Morador\Show;
 use App\Livewire\Ongs\CreateOng;
 use App\Http\Controllers\OngController;
 use App\Livewire\Comentario\ComentariosPendentes;
@@ -13,7 +14,9 @@ use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('dashboard', [MoradorController::class, 'index'])
     ->middleware(['auth', 'verified'])
@@ -41,7 +44,7 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.create');
 
-    Route::get('/show/{id}', [MoradorController::class, 'show'])
+    Route::get('/show/{id}', Show::class)
         ->name('morador.show');
 
     Route::get('/all', ListarTodos::class)

@@ -1,5 +1,5 @@
-<body class="bg-gray-100">
-    <div class="max-w-lg mx-auto my-10 bg-white rounded-lg shadow-md p-5">
+<div class="container-fluid py-4">
+    <div>
         @if ($this->isAdmin)
             <div class="flex justify-end">
                 <div x-data="{
@@ -49,26 +49,24 @@
                 </div>
             </div>
         @endif
-        <div class=" d-flex justify-content-around" style="width: 100%;">
-            <div style="width: 50%;height:auto">
-                <h3 class="text-center mb-4">Maria Cristina Pereira</h3>
-                <img src="" alt="" class="border border-secondary rounded-circle mx-auto d-block"
+        <div class="d-flex justify-content-around" style="width: 100%;">
+            <div style="width: 50%; height:auto">
+                <h3 class="text-center mb-4">{{$morador->nome_completo}}</h3>
+                <img src="" alt="" class="border border-secondary rounded mx-auto d-block"
                     style="width: 350px; height:350px">
             </div>
-            <div class="" style="width: 50%;">
+            <div style="width: 50%;">
                 <div style="width: 600px;">
                     <ul class="list-group list-group-flush mb-4" style="width: 600px;">
-                        <ol class="list-group-item"><b>Nome:</b> Maria Cristina Pereira </ol>
-                        <ol class="list-group-item"><b>Cidade natal:</b> Presidente Prudente-SP </ol>
-                        <ol class="list-group-item"><b>Cidade atual:</b> Fernandópolis-SP </ol>
-                        <ol class="list-group-item"><b>Data de nascimento:</b> 28/07/1965 </ol>
-                        <ol class="list-group-item"><b>Nome de um parente e grau de parentesco:</b> Guilhermina das
-                            Cruzes
-                            (Tia) </ol>
+                        <ol class="list-group-item"><b>Nome:</b> {{$morador->nome_completo}} </ol>
+                        <ol class="list-group-item"><b>Cidade natal:</b> {{$morador->cidade_natal}} </ol>
+                        <ol class="list-group-item"><b>Cidade atual:</b> {{$morador->cidade_atual}} </ol>
+                        <ol class="list-group-item"><b>Data de nascimento:</b> {{$morador->data_nasc}} </ol>
+                        <ol class="list-group-item"><b>Nome de um parente e grau de parentesco:</b> {{$morador->nome_familiar_proximo}}, {{$morador->grau_parentesco}} </ol>
                     </ul>
-
                     <h5>Comentário</h5>
-                    <textarea type="text" class="border shadow-sm bg-body-light rounded mb-4" style="width: 600px;height:50px"></textarea>
+                    <textarea type="text" class="border shadow-sm bg-body-light rounded mb-4" style="width: 600px;height:50px">
+                    </textarea>
                     <button class="btn btn-outline-dark mx-auto d-block" style="width:200px;"> Enviar </button>
                 </div>
             </div>
@@ -89,4 +87,4 @@
             @endif
         </div>
     </div>
-</body>
+</div>
