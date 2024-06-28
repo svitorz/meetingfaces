@@ -10,6 +10,8 @@ use App\Livewire\Morador\CreateMorador;
 use App\Livewire\Morador\EditMorador;
 use App\Livewire\Morador\ListarTodos;
 use App\Livewire\Ongs\Doacao;
+use App\Livewire\SobreNos;
+use App\Livewire\Somenos;
 use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +23,10 @@ Route::get('/', function () {
 Route::get('dashboard', [MoradorController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('/sobre-nos', SobreNos::class)->name('sobre_nos');
+
+Route::get('/some-nos', Somenos::class)->name('some_nos');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -36,6 +42,8 @@ Route::prefix('/ongs')->group(function () {
         ->name('ongs.dashboard');
 
     Route::get('/doacao', Doacao::class)->name('ongs.doacao');
+
+    Route::get('/show/{id}', \App\Livewire\Ongs\Show::class)->middleware(['auth'])->name('ongs.show');
 });
 
 Route::prefix('/moradores')->middleware('auth')->group(function () {

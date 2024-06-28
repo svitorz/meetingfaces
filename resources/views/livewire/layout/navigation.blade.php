@@ -35,10 +35,10 @@ new class extends Component {
                         Fale conosco
                     </a>
                 </li>
-                <li class="nav-item"><a href="sobre-nos.php" class="nav-link link-body-emphasis px-2 text-dark">Sobre
+                <li class="nav-item"><a href="{{route('sobre_nos')}}" class="nav-link link-body-emphasis px-2 text-dark">Sobre
                         nós</a>
                 </li>
-                <li class="nav-item"><a href="some-nos.php" class="nav-link link-body-emphasis px-2 text-dark">
+                <li class="nav-item"><a href="{{route('some_nos')}}" class="nav-link link-body-emphasis px-2 text-dark">
                     Some a nós
                 </a>
                 </li>

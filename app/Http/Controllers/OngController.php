@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Livewire\Ongs\Show;
 use App\Models\Ong;
 use Illuminate\Http\Request;
 
@@ -30,15 +31,6 @@ class OngController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Ong $ong)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
