@@ -11,7 +11,7 @@ use Livewire\Component;
 class CreateComentario extends Component
 {
     #[Validate('required|max:1024')]
-    public String $comentario = '';
+    public string $comentario = '';
     #[Validate('required')]
     public int $id_morador;
     #[Validate('required')]
@@ -41,6 +41,6 @@ class CreateComentario extends Component
 
     public function render()
     {
-        return view('livewire.comentario.create-comentario',['id' => $this->id_morador]);
+        return view('livewire.comentario.create-comentario', ['id' => $this->id_morador]);
     }
 }

@@ -31,7 +31,7 @@ new class extends Component {
                 <li class="nav-item"><a href="{{route('ongs.doacao')}}" class="nav-link link-body-emphasis px-2 text-dark">Doações</a>
                 </li>
                 <li class="nav-item">
-                    <a href="fale-conosco.php" class="nav-link link-body-emphasis px-2 text-dark">
+                    <a href="{{route('fale_conosco')}}" class="nav-link link-body-emphasis px-2 text-dark">
                         Fale conosco
                     </a>
                 </li>
@@ -43,7 +43,7 @@ new class extends Component {
                 </a>
                 </li>
                 <li class="d-flex justify-content-center align-items-center">
-                    <a class="link-secondary" href="encontros.php" aria-label="Search">
+                    <a class="link-secondary" href="{{route('dashboard')}}" aria-label="Search">
                         <svg xmlns="http://www.w3.org/2000/svg" style="width: 1.25em; height: 1.25em;" fill="none"
                             stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             class="mx-3" role="img" viewBox="0 0 24 24">

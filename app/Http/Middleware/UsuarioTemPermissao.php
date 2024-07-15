@@ -14,9 +14,9 @@ class UsuarioTemPermissao
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, String $role): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
-        if(auth()->check()){
+        if (auth()->check()) {
             if (auth()->user()->permissao == $role) {
                 return $next($request);
             }

@@ -108,8 +108,7 @@
     </style>
 
     <body>
-        <div class="w-3/4 bg-white ">
-            <!-- Conteúdo da página vai aqui -->
+        <div class="container-fluid bg-white">
             @yield('content')
         </div>
         <div class="container">
@@ -130,7 +129,8 @@
                             class="nav-link px-2 text-body-secondary">Encontros</a></li>
                     <li class="nav-item"><a href="{{ route('ongs.doacao') }}"
                             class="nav-link px-2 text-body-secondary">Doações</a></li>
-                    <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link px-2 text-body-secondary">Fale
+                    <li class="nav-item"><a href="{{ route('fale_conosco') }}"
+                            class="nav-link px-2 text-body-secondary">Fale
                             conosco</a>
                     </li>
                     <li class="nav-item"><a href="{{ route('sobre_nos') }}"

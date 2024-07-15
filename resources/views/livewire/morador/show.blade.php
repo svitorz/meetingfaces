@@ -26,7 +26,7 @@
                     <!-- Button -->
                     <button x-ref="button" x-on:click="toggle()" :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')" type="button"
-                        class="flex items-center gap-2 bg-white px-5 py-2.5 rounded-md shadow">
+                        class="flex items-center gap-2 bg-white px-5 py-2.5 rounded-md ">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
                             <path
@@ -64,14 +64,11 @@
                         <ol class="list-group-item"><b>Data de nascimento:</b> {{$morador->data_nasc}} </ol>
                         <ol class="list-group-item"><b>Nome de um parente e grau de parentesco:</b> {{$morador->nome_familiar_proximo}}, {{$morador->grau_parentesco}} </ol>
                     </ul>
-                    <h5>Comentário</h5>
-                    <textarea type="text" class="border shadow-sm bg-body-light rounded mb-4" style="width: 600px;height:50px">
-                    </textarea>
-                    <button class="btn btn-outline-dark mx-auto d-block" style="width:200px;"> Enviar </button>
+                    @livewire('comentario.CreateComentario', ['id' => $morador->id])
                 </div>
             </div>
         </div>
-        <div class="mt-5">
+        <div class="py-4">
             @if (isset($comentarios))
                 @foreach ($comentarios as $comentario)
                     <h3 class="text-xl font-semibold"></h3>

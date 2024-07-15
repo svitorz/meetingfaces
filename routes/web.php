@@ -25,8 +25,10 @@ Route::get('dashboard', [MoradorController::class, 'index'])
     ->name('dashboard');
 
 Route::get('/sobre-nos', SobreNos::class)->name('sobre_nos');
-
 Route::get('/some-nos', Somenos::class)->name('some_nos');
+Route::get('/fale-conosco', function () {
+    return "FALE CONOSCO";
+})->name('fale_conosco');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
@@ -66,6 +68,10 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
     Route::get('/destroy/{id}', [MoradorController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.destroy');
+
+    Route::post('/find', [MoradorController::class, 'find'])
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('morador.find');
 });
 
 

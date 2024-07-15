@@ -42,6 +42,16 @@ class MoradorController extends Controller
         //
     }
 
+    public function find(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $name = $validated['name'];
+
+        $moradores = Morador::where('nome_completo', 'ilike', "%$name%")->paginate(12);
+        return view('dashboard', ['moradores' => $moradores]);
+    }
     /**
      * Show the form for editing the specified resource.
      */

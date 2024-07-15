@@ -2,35 +2,38 @@
 
 namespace Database\Seeders;
 
-use App\Models\Comentario;
-use App\Models\Morador;
-use App\Models\User;
-use App\Models\Ong;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Ong;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class DatabaseSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        User::factory()->create([
+            'nome' => 'Vitor Souza',
+            'email' => 'vitor1@gmail.com',
+            'password' => Hash::make('12345678'),
+            'data_nasc' => '01/01/2001',
+            'telefone' => '(11) 11111-1111',
+            'permissao' => 'comum',
+        ]);
 
-        /* User::factory()->create([
+        User::factory()->create([
             'nome' => 'Vitor Souza',
             'email' => 'vitor@gmail.com',
             'password' => Hash::make('12345678'),
             'data_nasc' => '01/01/2001',
             'telefone' => '(11) 11111-1111',
             'permissao' => 'admin',
-        ]); */
+        ]);
 
-        Ong::factory(5)->create();
-
-        /* Ong::factory()->create([
+        Ong::factory()->create([
             'nome_completo' => 'Instituição Meeting Faces',
             'sigla' => 'IMF',
             'parcerias' => 'não tem parcerias',
@@ -49,9 +52,7 @@ class DatabaseSeeder extends Seeder
             'estado' => 'SP',
             'pais' => 'Brasil',
             'id_usuario' => 1,
-        ]); */
+        ]);
 
-        Morador::factory(10)->create();
-        Comentario::factory(20)->create();
     }
 }
