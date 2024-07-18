@@ -14,7 +14,9 @@ class MoradorController extends Controller
      */
     public function index()
     {
-        $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])->paginate(12);
+        $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])
+            ->orderBy('nome_completo')
+            ->paginate(12);
         return view('dashboard', ['moradores' => $moradores]);
     }
 
@@ -44,13 +46,50 @@ class MoradorController extends Controller
 
     public function find(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        $name = $validated['name'];
+        if (empty($request->name) && empty($request->cidade)) {
+            return redirect()->to(route('dashboard'));
+        }
 
-        $moradores = Morador::where('nome_completo', 'ilike', "%$name%")->paginate(12);
-        return view('dashboard', ['moradores' => $moradores]);
+        if (!empty($request->name) && !empty($request->cidade)) {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'cidade' => 'required|string|max:255',
+            ]);
+            $nome = $validated['name'];
+            $cidade = $validated['cidade'];
+
+            return view('dashboard', [
+                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
+                    ->where([
+                        ['nome_completo', 'ilike', $nome],
+                        ['cidade_atual', '=', $cidade]
+                    ])
+                    ->orderBy('nome_completo')
+                    ->paginate(12)
+            ]);
+        } elseif (!empty($request->name) && empty($request->cidade)) {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+            return view('dashboard', [
+                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
+                    ->where('nome_completo', 'ilike', $validated['name'])
+                    ->orderBy('nome_completo')
+                    ->paginate(12),
+            ]);
+        } elseif (empty($request->name) && !empty($request->cidade)) {
+            $validated = $request->validate([
+                'cidade' => 'required|string|max:255',
+            ]);
+            return view('dashboard', [
+                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
+                    ->where('cidade_atual', 'ilike', $validated['cidade'])
+                    ->orderBy('nome_completo')
+                    ->paginate(12),
+            ]);
+        } else {
+            return redirect()->to(route('dashboard'));
+        }
     }
     /**
      * Show the form for editing the specified resource.
@@ -76,8 +115,8 @@ class MoradorController extends Controller
     {
         $morador = Morador::findOrFail($id);
         /**
-         * Método para permitir que apenas usuários administradores da ong 
-         * que o morador pertence possam editar seu registro. 
+         * Método para permitir que apenas usuários administradores da ong
+         * que o morador pertence possam editar seu registro.
          * */
         $ong = Ong::where('id_usuario', '=', auth()->id())
             ->where('id', '=', $morador->id_ong)

@@ -37,12 +37,12 @@ class CreateMorador extends Component
 
     public function __construct()
     {
+        $this->id_ong = Ong::select('id')->where('id_usuario', '=', auth()->id())->value('id');
         $this->morador = new Morador;
     }
 
     public function mount($id = null): void
     {
-        $this->id_ong = Ong::select('id')->where('id_usuario', '=', auth()->id())->value('id');
 
         if (isset($id) && !empty($id)) {
             $this->morador = Morador::findOrFail($id);

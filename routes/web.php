@@ -69,7 +69,7 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.destroy');
 
-    Route::post('/find', [MoradorController::class, 'find'])
+    Route::get('/find', [MoradorController::class, 'find'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.find');
 });
