@@ -3,6 +3,7 @@
 namespace App\Livewire\Ongs;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 use App\Models\Ong;
 use App\Models\User;
@@ -59,7 +60,6 @@ class CreateOng extends Component
     {
         $this->id_usuario = Auth::id();
     }
-
     public function boot(): void
     {
         $hasIdOnOngs = DB::table('ongs')->where('id_usuario', '=', $this->id_usuario)->exists();
@@ -68,14 +68,14 @@ class CreateOng extends Component
         }
     }
 
+    public function getCep()
+    {
+        $promise = Http::async()->get('https://brasilapi.com.br/api/cep/v1/' + $this->cep);
+        return dump($promise->json());
+    }
     public function create(): Redirector  // não tem erro   
     {
         $validated = $this->validate();
-        /* FIXME: Adicionar um método para voltar aos inputs que possuem erros. */
-        /* if ($this->getErrorBag()->isNotEmpty()) {
-            $this->setErrorBag($this->errors);
-            $this->dispatchBrowserEvent('error-scroll');
-        } */
 
         if ($validated !== null) {
             Ong::create($validated);
