@@ -16,24 +16,23 @@ class CreateOng extends Component
 {
     public string $title = 'Cadastrar Ong';
 
-    #[Validate('required', message: "Insira o nome da sua ONG")]
+    #[Validate('required', message: 'Insira o nome da sua ONG')]
     public string $nome_completo;
-    #[Validate('required|min:3', message: "Insira uma sigla para sua ONG")]
+    #[Validate('required|min:3', message: 'Insira uma sigla para sua ONG')]
     public string $sigla;
     #[Validate('max:256')]
     public string $parcerias;
-
-    #[Validate('required', message: "Insira a data de fundação da sua ONG")]
+    #[Validate('required', message: 'Insira a data de fundação da sua ONG')]
     public string $data_fundacao;
     #[Validate('required')]
     public string $tipo_organizacao;
-    #[Validate('required', message: "Insira uma descrição sobre sua ONG")]
+    #[Validate('required', message: 'Insira uma descrição sobre sua ONG')]
     public string $descricao;
-    #[Validate('required', message: "Insira o CNPJ da sua ONG")]
+    #[Validate('required|unique', message: 'Insira o CNPJ da sua ONG')]
     public string $cnpj;
     #[Validate('required')]
     public string $email;
-    #[Validate('required')]
+    #[Validate('required|unique')]
     public string $telefone;
     #[Validate('required')]
     public string $url;
@@ -52,9 +51,7 @@ class CreateOng extends Component
     #[Validate('required')]
     public string $pais;
     #[Validate('max:1')]
-
     public int $id_usuario;
-
 
     public function __construct()
     {
@@ -62,26 +59,29 @@ class CreateOng extends Component
     }
     public function boot(): void
     {
-        $hasIdOnOngs = DB::table('ongs')->where('id_usuario', '=', $this->id_usuario)->exists();
+        $hasIdOnOngs = DB::table('ongs')
+            ->where('id_usuario', '=', $this->id_usuario)
+            ->exists();
         if ($hasIdOnOngs) {
             abort(401);
         }
     }
-
-    public function getCep()
+    public function fetchApi()
     {
-        $promise = Http::async()->get('https://brasilapi.com.br/api/cep/v1/' + $this->cep);
-        return dump($promise->json());
-    }
-    public function create(): Redirector  // não tem erro   
-    {
-        $validated = $this->validate();
+        $cep = $this->cep;
+        if (strlen($cep) == 9) {
+            $url = "https://brasilapi.com.br/api/cep/v1/$cep";
+            $response = Http::get($url);
+            $data = $response->json();
+            $this->rua = $data['street'];
+            $this->bairro = $data['neighborhood'];
+            $this->cidade = $data['city'];
+            $this->estado = $data['state'];
+            $this->pais = "Brasil";
 
-        if ($validated !== null) {
-            Ong::create($validated);
-            User::where('id', '=', auth()->id())->update(['permissao' => 'admin']);
+        } else {
+            session()->flash('msg', 'CEP inválido');
         }
-        return redirect()->route('dashboard');
     }
     public function render()
     {

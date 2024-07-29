@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Livewire\Ongs\Show;
 use App\Models\Ong;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OngController extends Controller
@@ -19,17 +20,35 @@ class OngController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            "nome_completo" => "required|max:255|string",
+            "sigla" => "required|max:5|string",
+            "email" => "required|email",
+            "cnpj" => "required|",
+            "parcerias" => "nullable",
+            "url" => "required",
+            'data_fundacao' => 'required|date',
+            "tipo_organizacao" => "required",
+            "descricao" => "required|max:1024",
+            "cep" => "required|numeric",
+            "numero" => "required|numeric",
+            "rua" => "required|string",
+            "cidade" => "required|string",
+            "bairro" => "required|string",
+            "estado" => "required|string",
+            "pais" => "required|string",
+            "telefone" => "required",
+        ]);
+        $validated['id_usuario'] = auth()->id();
+        if ($validated) {
+            Ong::create($validated);
+            User::where('id', '=', auth()->id())->update(['permissao' => 'admin']);
+        }
+
+        return redirect()->route('dashboard');
+
     }
     /**
      * Show the form for editing the specified resource.

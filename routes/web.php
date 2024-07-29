@@ -39,6 +39,9 @@ Route::prefix('/ongs')->group(function () {
         ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
         ->name('ongs.create');
 
+    Route::post('/store', [OngController::class, 'store'])
+        ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
+        ->name('ongs.store');
     Route::get('/dashboard', [OngController::class, 'index'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('ongs.dashboard');
@@ -70,13 +73,13 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
         ->name('morador.destroy');
 
     Route::get('/find', [MoradorController::class, 'find'])
-        ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.find');
 });
 
-
-Route::get('/comentarios/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
-Route::get('/comentarios/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
-Route::get('/comentarios/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
+Route::prefix('/comentarios')->group(function () {
+    Route::get('/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
+    Route::get('/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
+    Route::get('/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
+});
 
 require __DIR__ . '/auth.php';
