@@ -89,11 +89,6 @@ new #[Layout('layouts.guest')] class extends Component {
                         {{ __('Esqueceu sua senha?') }}
                     </a>
                 @endif
-                @if (Route::has('register'))
-                    <a class="col-5 d-grid gap-2 mx-auto d-block" href="{{ route('register') }}" wire:navigate>
-                        {{ __('Ainda não possui uma conta?') }}
-                    </a>
-                @endif
 
                 <button type="submit" class="btn btn-outline-dark my-4 py-2 col-6 d-grid gap-2 mx-auto">
                     {{ __('Entrar') }}
