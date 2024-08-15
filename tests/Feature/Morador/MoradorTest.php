@@ -34,7 +34,7 @@ class MoradorTest extends TestCase
      * Teste nos níveis de permissão com Middleware
      *
      * */
-    public function test_comum_users_canot_access_create():void
+    public function test_comum_users_canot_access_create(): void
     {
         $user = User::factory()->comum()->create();
 
@@ -48,21 +48,21 @@ class MoradorTest extends TestCase
     /**
      * teste para saber se moradores podem ser criados
      *  */
-    public function test_moradores_can_be_created():void
+    public function test_moradores_can_be_created(): void
     {
         $user = User::factory()->admin()->create();
         $ong = Ong::factory()->create()->value('id');
 
         $componente = Livewire::
-                    actingAs($user)
-                    ->test(CreateMorador::class)
-                    ->set('nome_completo','Nome Teste')
-                    ->set('data_nasc',date('d/M/Y',strtotime('01/01/1990')))
-                    ->set('cidade_natal','Cidade teste')
-                    ->set('cidade_atual','Cidade Teste')
-                    ->set('nome_familiar_proximo','Nome teste')
-                    ->set('grau_parentesco','Pai')
-                    ->set('id_ong',$ong);
+            actingAs($user)
+            ->test(CreateMorador::class)
+            ->set('nome_completo', 'Nome Teste')
+            ->set('data_nasc', date('d/M/Y', strtotime('01/01/1990')))
+            ->set('cidade_natal', 'Cidade teste')
+            ->set('cidade_atual', 'Cidade Teste')
+            ->set('nome_familiar_proximo', 'Nome teste')
+            ->set('grau_parentesco', 'Pai')
+            ->set('id_ong', $ong);
 
         $componente->call('create');
 
@@ -73,22 +73,22 @@ class MoradorTest extends TestCase
 
     /*
      * Teste para determinar se um morador pode ser editado
-    */
-    public function test_morador_can_be_editated():void
+     */
+    public function test_morador_can_be_editated(): void
     {
         $user = User::factory()->admin()->create();
         $ong = Ong::factory()->create()->value('id');
         $morador = Morador::factory()->create()->value('id');
 
         $componente = Livewire::actingAs($user)
-                    ->test(CreateMorador::class,['id' => $morador])
-                    ->set('nome_completo','Nome Update')
-                    ->set('data_nasc',date('d/M/Y',strtotime('01/01/1990')))
-                    ->set('cidade_natal','Cidade Update')
-                    ->set('cidade_atual','Cidade Update')
-                    ->set('nome_familiar_proximo','Nome Update')
-                    ->set('grau_parentesco','Pai')
-                    ->set('id_ong',$ong);
+            ->test(CreateMorador::class, ['id' => $morador])
+            ->set('nome_completo', 'Nome Update')
+            ->set('data_nasc', date('d/M/Y', strtotime('01/01/1990')))
+            ->set('cidade_natal', 'Cidade Update')
+            ->set('cidade_atual', 'Cidade Update')
+            ->set('nome_familiar_proximo', 'Nome Update')
+            ->set('grau_parentesco', 'Pai')
+            ->set('id_ong', $ong);
 
         $componente->call('update');
 

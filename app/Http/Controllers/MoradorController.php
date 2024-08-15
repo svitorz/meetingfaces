@@ -20,30 +20,6 @@ class MoradorController extends Controller
         return view('dashboard', ['moradores' => $moradores]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(int $id)
-    {
-        //
-    }
-
     public function find(Request $request)
     {
         if (empty($request->name) && empty($request->cidade)) {
@@ -90,21 +66,6 @@ class MoradorController extends Controller
         } else {
             return redirect()->to(route('dashboard'));
         }
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Morador $morador)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Morador $morador)
-    {
-        //
     }
 
     /**

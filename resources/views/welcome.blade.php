@@ -32,9 +32,9 @@
       transform: translate(-50px, 0px);
       transition: .3s all ease;
     }
-    
   </style>
-</head> 
+</head>
+
 <body class="ly">
   <livewire:layout.navigation />
 
@@ -142,38 +142,39 @@
 
 
   <div class=" d-flex justify-content-around bg-white align-items-center" style="height: 400px">
-    <div class=" float-start bg-white border bg-white w-25 rounded text-center p-2" style="height: 300px;">
+    <div class=" float-start bg-white border w-25 rounded text-center p-2" style="height: 300px;">
       <h3>Sobre nós</h3>
       <img class="p-3" style="width: 200px; height: 170px;" src="{{asset('img/logo2.png')}}" alt="Meeting Faces">
       <br>
       <br>
 
-      <a href="sobre-nos.php" class=" btn btn-outline-dark border border-dark me-2 py-2 px-4">
+      <a href="{{route('sobre_nos')}}" class=" btn btn-outline-dark border border-dark me-2 py-2 px-4">
         Leia mais
       </a>
     </div>
 
-    <div class="bloco float-end bg-white border bg-white w-25 rounded text-center p-2 " style="height: 300px;">
+    <div class="bloco float-end bg-white border w-25 rounded text-center p-2 " style="height: 300px;">
       <h3>ONG, some a nós</h3>
       <img class="p-3" style="width: 150px; height: 170px;" src="{{asset('img/trabalho-em-equipe.png')}}"
         alt="4 mãos: uma segurando a outra formando o ciclo">
       <br>
       <br>
-      <a href="some-nos.php" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
+      <a href="{{ route('some_nos')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
         Leia mais
       </a>
     </div>
 
-    <div class=" float-end bg-white border bg-white w-25 rounded text-center p-2 " style="height: 300px;"">
+    <div class=" float-end bg-white border w-25 rounded text-center p-2 " style="height: 300px;"">
       <h3> Doe às Instituições</h3>
       <img class=" p-3" style="width: 150px; height: 170px;" src="{{asset('img/coracao-de-maos-dadas.png')}}"
       alt="uma mão recebendo um coração ">
       <br>
       <br>
-      <a href="doacao.php" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
+      <a href="{{route('ongs.doacao')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
         Leia mais
       </a>
     </div>
   </div>
 </body>
+
 </html>
