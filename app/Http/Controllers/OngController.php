@@ -42,13 +42,12 @@ class OngController extends Controller
             "telefone" => "required",
         ]);
         $validated['id_usuario'] = auth()->id();
-        if ($validated) {
+        if ($validated != false) {
             Ong::create($validated);
             User::where('id', '=', auth()->id())->update(['permissao' => 'admin']);
         }
-
+        // add a comment
         return redirect()->route('dashboard');
-
     }
     /**
      * Show the form for editing the specified resource.

@@ -27,7 +27,7 @@ Route::get('dashboard', [MoradorController::class, 'index'])
 Route::get('/sobre-nos', SobreNos::class)->name('sobre_nos');
 Route::get('/some-nos', Somenos::class)->name('some_nos');
 Route::get('/fale-conosco', function () {
-    return "FALE CONOSCO";
+    return "FALE CONOSCO"
 })->name('fale_conosco');
 
 Route::view('profile', 'profile')
