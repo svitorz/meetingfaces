@@ -11,10 +11,10 @@ class OngObserver
      */
     public function created(Ong $ong): void
     {
-        if(auth()->check())
-        {
+        if (auth()->check()) {
             $user = auth()->user();
-            $user->permissao = "admin";
+            $user->update(['permissao' => 'admin']);
+
         }
     }
 

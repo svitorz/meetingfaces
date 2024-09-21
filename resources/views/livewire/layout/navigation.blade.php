@@ -60,7 +60,7 @@ new class extends Component {
                     <a href="{{route('login')}}" type="button" class="btn btn-outline-dark me-2">Login</a>
                     <a href="{{route('register')}}" type="button" class="btn btn-outline-dark px-2 ms-1">Cadastrar-se</a>
                 @endguest
-                
+
                 @auth
                 <x-dropdown align="right" width="24">
                     <x-slot name="trigger">

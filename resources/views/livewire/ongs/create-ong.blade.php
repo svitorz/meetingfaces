@@ -10,8 +10,7 @@
           </div>
         @endif
         <form class=" mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded"
-            style="height:auto;width:1000px" class="space-y-2" action="{{ route('ongs.store') }}"
-            method="POST">
+            style="height:auto;width:1000px" class="space-y-2" wire:submit="store" method="POST">
             @csrf
             <div class="row">
                 <div class=" mb-3 col-3  ">
@@ -89,7 +88,7 @@
                         <x-text-input placeholder="11111-1111" wire:model="cep" id="cep"
                             class="block w-full form-control" type="text" x-mask="99999-999" name="cep"
                             aria-describedby="searchButton" />
-                        <button class="btn btn-light border border-l-0" type="button" id="searchButton" wire:click="fetchApi">
+                        <button class="btn btn-light border border-l-0" type="button" id="searchButton" wire:click="fetchApi" @click.prevent>
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                 fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path
