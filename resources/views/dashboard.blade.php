@@ -9,6 +9,9 @@
 <div class="ly">
     @section('content')
         <livewire:morador.search-box />
+        @if (isset($link_morador) && !empty($link_morador))
+            {!! $link_morador !!}
+        @endif
         <div class="container-fluid">
             <div class="mx-auto d-block">
                 <div class="row">
