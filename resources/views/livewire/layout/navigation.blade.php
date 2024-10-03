@@ -30,11 +30,6 @@ new class extends Component {
                 </li>
                 <li class="nav-item"><a href="{{route('ongs.doacao')}}" class="nav-link link-body-emphasis px-2 text-dark">Doações</a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('fale_conosco')}}" class="nav-link link-body-emphasis px-2 text-dark">
-                        Fale conosco
-                    </a>
-                </li>
                 <li class="nav-item"><a href="{{route('sobre_nos')}}" class="nav-link link-body-emphasis px-2 text-dark">Sobre
                         nós</a>
                 </li>

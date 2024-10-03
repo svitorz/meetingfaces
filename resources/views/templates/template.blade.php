@@ -129,10 +129,6 @@
                             class="nav-link px-2 text-body-secondary">Encontros</a></li>
                     <li class="nav-item"><a href="{{ route('ongs.doacao') }}"
                             class="nav-link px-2 text-body-secondary">Doações</a></li>
-                    <li class="nav-item"><a href="{{ route('fale_conosco') }}"
-                            class="nav-link px-2 text-body-secondary">Fale
-                            conosco</a>
-                    </li>
                     <li class="nav-item"><a href="{{ route('sobre_nos') }}"
                             class="nav-link px-2 text-body-secondary">Sobre nós</a></li>
                     <li class="nav-item"><a href="{{ route('some_nos') }}"
