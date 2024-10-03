@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Livewire\Ongs\Show;
+use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OngController extends Controller
 {
@@ -13,13 +14,19 @@ class OngController extends Controller
      */
     public function index()
     {
-        return view('ongs.OngDashboard');
+        $authUser = Auth::user()->id;
+        $ongId = Ong::where('id_usuario', $authUser)->first()->id;
+        $moradores = Morador::where('id_ong', $ongId)->paginate(12);
+        $link_morador = true;
+        return view('dashboard', ['moradores' => $moradores, 'link_morador' => $link_morador]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function store(Request $request) {}
+    public function store(Request $request)
+    {
+    }
 
     /**
      * Show the form for editing the specified resource.

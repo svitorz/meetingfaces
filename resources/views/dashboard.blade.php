@@ -9,9 +9,11 @@
 <div class="ly">
     @section('content')
         <livewire:morador.search-box />
-        @if (isset($link_morador) && !empty($link_morador))
-            {!! $link_morador !!}
-        @endif
+        @isset($link_morador)
+        <div class="d-flex justify-content-center align-items-center">
+            <a href="{{ route('morador.create') }}" class="btn btn-dark">Inserir morador</a>
+        </div>
+        @endisset
         <div class="container-fluid">
             <div class="mx-auto d-block">
                 <div class="row">
