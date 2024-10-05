@@ -12,26 +12,26 @@ class Ong extends Model
     use HasFactory;
 
     protected $fillable =
-    [
-        'nome_completo',
-        'sigla',
-        'parcerias',
-        'data_fundacao',
-        'tipo_organizacao',
-        'descricao',
-        'cnpj',
-        'email',
-        'telefone',
-        'url',
-        'cep',
-        'numero',
-        'rua',
-        'cidade',
-        'bairro',
-        'estado',
-        'pais',
-        'id_usuario',
-    ];  
+        [
+            'nome_completo',
+            'sigla',
+            'parcerias',
+            'data_fundacao',
+            'tipo_organizacao',
+            'descricao',
+            'cnpj',
+            'email',
+            'telefone',
+            'url',
+            'cep',
+            'numero',
+            'rua',
+            'cidade',
+            'bairro',
+            'estado',
+            'pais',
+            'id_usuario',
+        ];
 
     public function user(): BelongsTo
     {

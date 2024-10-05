@@ -55,7 +55,6 @@ class User extends Authenticatable
         return $this->hasOne(Ong::class);
     }
 
-
     public function comentarios(): HasMany
     {
         return $this->hasMany(Comentario::class);
