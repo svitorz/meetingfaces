@@ -3,8 +3,6 @@
 namespace App\Livewire\Comentario;
 
 use App\Models\Comentario;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -12,8 +10,10 @@ class CreateComentario extends Component
 {
     #[Validate('required|max:1024')]
     public string $comentario = '';
+
     #[Validate('required')]
     public int $id_morador;
+
     #[Validate('required')]
     public int $id_usuario;
 
@@ -23,11 +23,13 @@ class CreateComentario extends Component
     {
         $this->id_usuario = auth()->id();
     }
+
     public function mount(int $id)
     {
         $this->id_morador = $id;
 
     }
+
     public function create()
     {
         Comentario::create([
@@ -35,7 +37,7 @@ class CreateComentario extends Component
             'id_usuario' => $this->id_usuario,
             'id_morador' => $this->id_morador,
         ]);
-        session()->flash('messagem', 'Comentário enviado com sucesso! Aguarde aprovação de um dos administradores.');
+        session()->flash('msg', 'Comentário enviado com sucesso! Aguarde aprovação de um dos administradores.');
         $this->reset('comentario');
     }
 

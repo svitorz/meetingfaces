@@ -108,8 +108,9 @@ class CreateOng extends Component
         $user = User::findOrFail($this->id_usuario);
         $user->permissao = 'admin';
         $user->save();
+        session()->flash('msg', 'Ong cadastrada com sucesso!');
 
-        return $this->redirect('/dashboard');
+        return $this->redirect('/ongs/dashboard');
 
     }
 

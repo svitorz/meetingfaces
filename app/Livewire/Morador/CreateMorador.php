@@ -3,24 +3,24 @@
 namespace App\Livewire\Morador;
 
 use App\Models\Morador;
-use Illuminate\Routing\Redirector;
 use App\Models\Ong;
 use App\Models\User;
+use Illuminate\Routing\Redirector;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class CreateMorador extends Component
 {
-    #[Validate('max:50', message: "Tamanho máximo de 50 caracteres")]
+    #[Validate('max:50', message: 'Tamanho máximo de 50 caracteres')]
     public $nome_completo;
 
-    #[Validate('max:100', message: "Tamanho máximo de 100 caracteres")]
+    #[Validate('max:100', message: 'Tamanho máximo de 100 caracteres')]
     public $cidade_atual;
 
-    #[Validate('max:100', message: "Tamanho máximo de 100 caracteres")]
+    #[Validate('max:100', message: 'Tamanho máximo de 100 caracteres')]
     public $cidade_natal;
 
-    #[Validate('max:50', message: "Tamanho máximo de 50 caracteres")]
+    #[Validate('max:50', message: 'Tamanho máximo de 50 caracteres')]
     public $nome_familiar_proximo;
 
     public $grau_parentesco;
@@ -44,7 +44,7 @@ class CreateMorador extends Component
     public function mount($id = null): void
     {
 
-        if (isset($id) && !empty($id)) {
+        if (isset($id) && ! empty($id)) {
             $this->morador = Morador::findOrFail($id);
             /**
              * Método para permitir que apenas usuários administradores da ong
@@ -54,7 +54,7 @@ class CreateMorador extends Component
                 ->where('id', '=', $this->morador->id_ong)
                 ->exists();
 
-            if (!$ong) {
+            if (! $ong) {
                 abort(401);
             }
 
@@ -77,7 +77,7 @@ class CreateMorador extends Component
             'cidade_natal' => $this->cidade_natal,
             'nome_familiar_proximo' => $this->nome_familiar_proximo,
             'grau_parentesco' => $this->grau_parentesco,
-            'data_nasc' => $this->data_nasc
+            'data_nasc' => $this->data_nasc,
         ]);
         session()->flash('msg', 'Cadastro atualizado com sucesso.');
 
@@ -98,12 +98,13 @@ class CreateMorador extends Component
             'id_ong' => $this->id_ong,
         ]);
 
-        return redirect()->route('morador.show', ['id' => $id]);
+        return redirect()->route('morador.show', ['id' => $id])->with(session()->flash('msg', 'Morador cadastrado com sucesso!'));
     }
+
     public function render()
     {
         $user = User::find(auth()->id());
-        if ($user->permissao != "admin") {
+        if ($user->permissao != 'admin') {
             return abort(401);
         }
 

@@ -1,4 +1,9 @@
 <div class="container-fluid">
+    @if (session()->has('msg'))
+        <div class="mt-4 alert-success">
+            {{ session('msg') }}
+        </div>
+    @endif
     <div class="flex justify-center mt-10 pt-10">
         <form wire:submit="create" method="post">
             <div>

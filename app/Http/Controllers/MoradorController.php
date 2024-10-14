@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Http\Request;
-use Illuminate\Support\ViewErrorBag;
 
 class MoradorController extends Controller
 {
@@ -17,6 +16,7 @@ class MoradorController extends Controller
         $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])
             ->orderBy('nome_completo')
             ->paginate(12);
+
         return view('dashboard', ['moradores' => $moradores]);
     }
 
@@ -26,7 +26,7 @@ class MoradorController extends Controller
             return redirect()->to(route('dashboard'));
         }
 
-        if (!empty($request->name) && !empty($request->cidade)) {
+        if (! empty($request->name) && ! empty($request->cidade)) {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'cidade' => 'required|string|max:255',
@@ -38,39 +38,36 @@ class MoradorController extends Controller
                 'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
                     ->where([
                         ['nome_completo', 'ilike', $nome],
-                        ['cidade_atual', '=', $cidade]
+                        ['cidade_atual', '=', $cidade],
                     ])
-                    ->orderBy('nome_completo')
-                    ->paginate(12)
-            ]);
-        } elseif (!empty($request->name) && empty($request->cidade)) {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
-            return view('dashboard', [
-                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
-                    ->where('nome_completo', 'ilike', $validated['name'])
                     ->orderBy('nome_completo')
                     ->paginate(12),
             ]);
-        } elseif (empty($request->name) && !empty($request->cidade)) {
+        } elseif (! empty($request->name) && empty($request->cidade)) {
             $validated = $request->validate([
-                'cidade' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
             ]);
+
+            return view('dashboard', [
+                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
+                    ->where('nome_completo', 'ilike', '%'.$validated['name'].'%')
+                    ->orderBy('nome_completo')
+                    ->paginate(12),
+            ]);
+        } else {
+            $validated = $request->validate(['cidade' => 'required|string|max:255']);
+
             return view('dashboard', [
                 'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
                     ->where('cidade_atual', 'ilike', $validated['cidade'])
                     ->orderBy('nome_completo')
                     ->paginate(12),
             ]);
-        } else {
-            return redirect()->to(route('dashboard'));
         }
     }
 
     /**
      * Remove the specified resource from storage.
-     * FIXME: Adicionar verificações antes de excluir um morador.
      */
     public function destroy(int $id)
     {
@@ -82,12 +79,13 @@ class MoradorController extends Controller
         $ong = Ong::where('id_usuario', '=', auth()->id())
             ->where('id', '=', $morador->id_ong)
             ->exists();
-        if (!$ong) {
+        if (! $ong) {
             abort(401);
         }
 
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
+
         return redirect()->to(route('dashboard'));
     }
 }

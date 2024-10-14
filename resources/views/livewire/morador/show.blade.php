@@ -1,4 +1,9 @@
 <div class="container-fluid py-4">
+    @if (session()->has('msg'))
+        <div class="alert alert-success">
+            {{ session('msg')}}
+        </div>
+    @endif
     <div>
         @if ($this->isAdmin)
             <div class="flex justify-end">
@@ -8,16 +13,16 @@
                         if (this.open) {
                             return this.close()
                         }
-                
+
                         this.$refs.button.focus()
-                
+
                         this.open = true
                     },
                     close(focusAfter) {
                         if (!this.open) return
-                
+
                         this.open = false
-                
+
                         focusAfter && focusAfter.focus()
                     }
                 }" x-on:keydown.escape.prevent.stop="close($refs.button)"
@@ -74,13 +79,6 @@
                     <h3 class="text-xl font-semibold"></h3>
                     <p class="text-gray-600 mt-2">{{ $comentario->comentario }}</p>
                 @endforeach
-            @endif
-            @if (session('msg'))
-                <div class="p-4 mb-4 text-blue-800 rounded-lg bg-blue-50" role="alert">
-                    <span class="">
-                        {{ session('msg') }}
-                    </span>
-                </div>
             @endif
         </div>
     </div>

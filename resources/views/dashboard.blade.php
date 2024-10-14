@@ -8,6 +8,21 @@
 
 <div class="ly">
     @section('content')
+    @if (session()->has('msg'))
+        @php
+            $isDanger = false;
+            if(str_contains(session('msg'),'excluído')){
+                $isDanger = true;
+            }
+        @endphp
+        <div @class([
+                'alert',
+                'alert-danger' => $isDanger,
+                    'alert-success' => ! $isDanger,
+                ])>
+                {{ session('msg')}}
+        </div>
+    @endif
         <livewire:morador.search-box />
         @isset($link_morador)
         <div class="d-flex justify-content-center align-items-center">
