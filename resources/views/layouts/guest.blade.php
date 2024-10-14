@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Meeting Faces') }}</title>
+    <title>
+        {{ config('app.name', 'Meeting Faces') }}
+    </title>
+    <link rel="icon" href="{{asset('img/logo1.png')}}" type="image/icon type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
@@ -21,7 +24,7 @@
 </head>
 
 <body>
-    <livewire:layout.navigation />  
+    <livewire:layout.navigation />
     <div class="ly d-flex align-items-center py-4 bg-body-white">
         <div class="form-signin w-100 m-auto ">
             <a href="/" wire:navigate>
