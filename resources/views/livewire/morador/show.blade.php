@@ -57,8 +57,8 @@
         <div class="d-flex justify-content-around" style="width: 100%;">
             <div style="width: 50%; height:auto">
                 <h3 class="text-center mb-4">{{$morador->nome_completo}}</h3>
-                <img src="" alt="" class="border border-secondary rounded mx-auto d-block"
-                    style="width: 350px; height:350px">
+                            <img src="{{ asset('storage/photos/' . $morador->profile_picture)}}" alt="" class="border border-secondary rounded mx-auto d-block"
+                        style="width: 350px; height:350px">
             </div>
             <div style="width: 50%;">
                 <div style="width: 600px;">
