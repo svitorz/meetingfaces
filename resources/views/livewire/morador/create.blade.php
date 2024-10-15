@@ -61,6 +61,13 @@
                   </select>
                   <x-input-error :messages="$errors->get('grau_parentesco')" class="mt-2" />
               </div>
+              <div class="col-12">
+                <x-input-label for="profile_picture" :value="__('Foto para perfil')" />
+                    <x-text-input wire:model="profile_picture" id="profile_picture" class="block mt-1 w-full" type="file"
+                      name="profile_picture" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+                <x-input-error :messages="$errors->get('cidade_atual')" class="mt-2" />
+                    <div wire:loading wire:target="photo" class="text-sm text-gray-500 italic">Uploading...</div>
+              </div>
               <button type="submit" class="mt-3 btn btn-outline-dark mx-auto d-block col-5">
                   @if ($this->editing == false)
                       Cadastrar

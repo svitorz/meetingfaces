@@ -8,9 +8,12 @@ use App\Models\User;
 use Illuminate\Routing\Redirector;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateMorador extends Component
 {
+    use WithFileUploads;
+
     #[Validate('max:50', message: 'Tamanho máximo de 50 caracteres')]
     public $nome_completo;
 
@@ -34,6 +37,9 @@ class CreateMorador extends Component
     public bool $editing = false;
 
     public int $id_morador;
+
+    #[Validate('image|max:1024', 'A imagem deve conter até 1mb')]
+    public $profile_picture;
 
     public function __construct()
     {
@@ -65,12 +71,19 @@ class CreateMorador extends Component
             $this->nome_familiar_proximo = $this->morador->nome_familiar_proximo;
             $this->grau_parentesco = $this->morador->grau_parentesco;
             $this->data_nasc = $this->morador->data_nasc;
+            $this->profile_picture = $this->morador->profile_picture;
             $this->editing = true;
         }
     }
 
     public function update(): Redirector
     {
+        if (empty($this->profile_picture)) {
+            $name = md5($this->profile_picture.microtime()).'.'.$this->profile_picture->extension();
+            $this->profile_picture->storeAs('photos', $name);
+        } else {
+            $name = 'user.png';
+        }
         $this->morador::where('id', '=', $this->id_morador)->update([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,
@@ -78,6 +91,7 @@ class CreateMorador extends Component
             'nome_familiar_proximo' => $this->nome_familiar_proximo,
             'grau_parentesco' => $this->grau_parentesco,
             'data_nasc' => $this->data_nasc,
+            'profile_picture' => $name,
         ]);
         session()->flash('msg', 'Cadastro atualizado com sucesso.');
 
@@ -87,7 +101,12 @@ class CreateMorador extends Component
     public function create(): Redirector
     {
         $this->validate();
-
+        if (empty($this->profile_picture)) {
+            $name = md5($this->profile_picture.microtime()).'.'.$this->profile_picture->extension();
+            $this->profile_picture->storeAs('photos', $name);
+        } else {
+            $name = 'user.png';
+        }
         $id = $this->morador::create([
             'nome_completo' => $this->nome_completo,
             'cidade_atual' => $this->cidade_atual,
@@ -96,6 +115,7 @@ class CreateMorador extends Component
             'grau_parentesco' => $this->grau_parentesco,
             'data_nasc' => $this->data_nasc,
             'id_ong' => $this->id_ong,
+            'profile_picture' => $name,
         ]);
 
         return redirect()->route('morador.show', ['id' => $id])->with(session()->flash('msg', 'Morador cadastrado com sucesso!'));

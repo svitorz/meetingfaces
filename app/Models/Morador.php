@@ -21,6 +21,7 @@ class Morador extends Model
         'grau_parentesco',
         'data_nasc',
         'id_ong',
+        'profile_picture',
     ];
 
     public function ongs(): BelongsTo
