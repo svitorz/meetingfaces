@@ -14,6 +14,8 @@ class CreateOng extends Component
 {
     public string $title = 'Cadastrar Ong';
 
+    public int $id_ong;
+
     #[Validate('required', message: 'Insira o nome da sua ONG')]
     public string $nome_completo;
 
@@ -68,6 +70,8 @@ class CreateOng extends Component
     #[Validate('max:1')]
     public int $id_usuario;
 
+    public bool $editing = false;
+
     public function __construct()
     {
         $this->id_usuario = Auth::id();
@@ -99,6 +103,49 @@ class CreateOng extends Component
         } else {
             session()->flash('msg', 'CEP inválido');
         }
+    }
+
+    public function mount(?int $id = null)
+    {
+        $ong = [];
+        if (! isset($id) && empty($id)) {
+            return back();
+        }
+        $ong = Ong::findOrFail($id);
+        if ($ong->id_usuario != Auth::id()) {
+            return abort(401);
+        }
+
+        $this->nome_completo = $ong->nome_completo;
+        $this->sigla = $ong->sigla;
+        $this->parcerias = $ong->parcerias;
+        $this->data_fundacao = $ong->data_fundacao;
+        $this->tipo_organizacao = $ong->tipo_organizacao;
+        $this->descricao = $ong->descricao;
+        $this->cnpj = $ong->cnpj;
+        $this->email = $ong->email;
+        $this->telefone = $ong->telefone;
+        $this->url = $ong->url;
+        $this->cep = $ong->cep;
+        $this->numero = $ong->numero;
+        $this->rua = $ong->rua;
+        $this->cidade = $ong->cidade;
+        $this->bairro = $ong->bairro;
+        $this->estado = $ong->estado;
+        $this->pais = $ong->pais;
+        $this->id_ong = $ong->id;
+        $this->editing = true;
+    }
+
+    public function update()
+    {
+
+        $this->validate();
+
+        Ong::where('id', '=', $this->id_ong)->update();
+        session()->flash('msg', 'Ong atualizada com sucesso!');
+
+        return $this->redirect('/ongs/dashboard');
     }
 
     public function store()

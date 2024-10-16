@@ -28,6 +28,16 @@
                         </a>
                     </div>
                 </div>
+            @else
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        <a href="{{ route('ongs.edit') }}">
+                            <x-primary-button>
+                                Edite as informações da sua ONG
+                            </x-primary-button>
+                        </a>
+                    </div>
+                </div>
             @endif
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">

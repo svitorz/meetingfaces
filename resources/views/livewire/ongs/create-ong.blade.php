@@ -10,9 +10,19 @@
           </div>
         @endif
         <form class=" mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded"
-            style="height:auto;width:1000px" class="space-y-2" wire:submit="store" method="POST">
+            style="height:auto;width:1000px" class="space-y-2"
+            @if($this->editing)
+                <input type="hidden" name="id_ong" id="id_ong" wire:model="id_ong" />
+            @endif
+            method="POST">
             @csrf
             <div class="row">
+            @if($this->editing)
+                wire:submit="update"
+            @else
+                wire:submit="store"
+            @endif
+
                 <div class=" mb-3 col-3  ">
                     <x-input-label for="nome_completo" :value="__('Nome Fantasia')" />
                     <x-text-input placeholder="Instituição Exemplo" wire:model="nome_completo" id="nome_completo"
