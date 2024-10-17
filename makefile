@@ -15,10 +15,3 @@ dt:
 	@composer dump-autoload
 	@php artisan test
 
-.PHONY: install
-install:
-        @composer install
-        @npm install
-        @npm run build
-        @php artisan key:generate
-        @php artisan migrate

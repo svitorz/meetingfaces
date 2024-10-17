@@ -14,6 +14,8 @@ class CreateOng extends Component
 {
     public string $title = 'Cadastrar Ong';
 
+    public int $id_ong;
+
     #[Validate('required', message: 'Insira o nome da sua ONG')]
     public string $nome_completo;
 
@@ -38,7 +40,7 @@ class CreateOng extends Component
     #[Validate('required')]
     public string $email;
 
-    #[Validate('required|unique:ongs,telefone')]
+    #[Validate('required')]
     public string $telefone;
 
     #[Validate('required')]
@@ -68,19 +70,14 @@ class CreateOng extends Component
     #[Validate('max:1')]
     public int $id_usuario;
 
+    public bool $editing = false;
+
+    public $ong;
+
     public function __construct()
     {
         $this->id_usuario = Auth::id();
-    }
-
-    public function boot(): void
-    {
-        $hasIdOnOngs = DB::table('ongs')
-            ->where('id_usuario', '=', $this->id_usuario)
-            ->exists();
-        if ($hasIdOnOngs) {
-            abort(401);
-        }
+        $this->ong = new Ong;
     }
 
     public function fetchApi()
@@ -101,8 +98,75 @@ class CreateOng extends Component
         }
     }
 
+    public function mount(?int $id = null)
+    {
+        $ong = [];
+        if (! isset($id) && empty($id)) {
+            return back();
+        }
+        $ong = Ong::findOrFail($id);
+        if ($ong->id_usuario != $this->id_usuario) {
+            return abort(401);
+        }
+
+        $this->nome_completo = $ong->nome_completo;
+        $this->sigla = $ong->sigla;
+        $this->parcerias = $ong->parcerias;
+        $this->data_fundacao = $ong->data_fundacao;
+        $this->tipo_organizacao = $ong->tipo_organizacao;
+        $this->descricao = $ong->descricao;
+        $this->cnpj = $ong->cnpj;
+        $this->email = $ong->email;
+        $this->telefone = $ong->telefone;
+        $this->url = $ong->url;
+        $this->cep = $ong->cep;
+        $this->numero = $ong->numero;
+        $this->rua = $ong->rua;
+        $this->cidade = $ong->cidade;
+        $this->bairro = $ong->bairro;
+        $this->estado = $ong->estado;
+        $this->pais = $ong->pais;
+        $this->id_ong = $ong->id;
+        $this->editing = true;
+    }
+
+    public function update()
+    {
+
+        // $this->validate();
+
+        $this->ong::where('id', '=', $this->id_ong)->update([
+            'nome_completo' => $this->nome_completo,
+            'sigla' => $this->sigla,
+            'parcerias' => $this->parcerias,
+            'data_fundacao' => $this->data_fundacao,
+            'tipo_organizacao' => $this->tipo_organizacao,
+            'descricao' => $this->descricao,
+            'cnpj' => $this->cnpj,
+            'email' => $this->email,
+            'telefone' => $this->telefone,
+            'url' => $this->url,
+            'cep' => $this->cep,
+            'numero' => $this->numero,
+            'rua' => $this->rua,
+            'cidade' => $this->cidade,
+            'bairro' => $this->bairro,
+            'estado' => $this->estado,
+            'pais' => $this->pais,
+        ]);
+        session()->flash('msg', 'Ong atualizada com sucesso!');
+
+        return $this->redirect('/ongs/dashboard');
+    }
+
     public function store()
     {
+        $hasIdOnOngs = DB::table('ongs')
+            ->where('id_usuario', '=', $this->id_usuario)
+            ->exists();
+        if ($hasIdOnOngs) {
+            abort(401);
+        }
         $this->validate();
         Ong::create($this->all());
         $user = User::findOrFail($this->id_usuario);

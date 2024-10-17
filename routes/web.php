@@ -29,13 +29,12 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::prefix('/ongs')->group(function () {
-    Route::get('/create', CreateOng::class)
-        ->middleware(['auth', UsuarioTemPermissao::class.':comum'])
-        ->name('ongs.create');
+    Route::get('/create', CreateOng::class)->middleware(['auth', UsuarioTemPermissao::class.':comum'])->name('ongs.create');
 
-    Route::post('/store', [OngController::class, 'store'])
-        ->middleware(['auth', UsuarioTemPermissao::class.':comum'])
-        ->name('ongs.store');
+    Route::get('/edit/{id}', CreateOng::class)
+        ->middleware(['auth', UsuarioTemPermissao::class.':admin'])
+        ->name('ongs.edit');
+
     Route::get('/dashboard', [OngController::class, 'index'])
         ->middleware(UsuarioTemPermissao::class.':admin')
         ->name('ongs.dashboard');
