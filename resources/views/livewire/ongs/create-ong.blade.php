@@ -9,19 +9,16 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         @endif
-        <form class=" mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded"
-            style="height:auto;width:1000px" class="space-y-2"
+        <form class="space-y-2 mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded"
+            style="height:auto;width:1000px"
+            wire:submit.prevent="{{ $this->editing ? 'update' : 'store' }}"
+            method="POST">
+
             @if($this->editing)
                 <input type="hidden" name="id_ong" id="id_ong" wire:model="id_ong" />
             @endif
-            method="POST">
             @csrf
             <div class="row">
-            @if($this->editing)
-                wire:submit="update"
-            @else
-                wire:submit="store"
-            @endif
 
                 <div class=" mb-3 col-3  ">
                     <x-input-label for="nome_completo" :value="__('Nome Fantasia')" />
@@ -157,7 +154,11 @@
             <div class="col mt-5">
 
                 <button class="btn btn-outline-dark w-20 py-2 col-6 d-grid gap-2 mx-auto" type="submit">
-                    Cadastrar
+                    @if($this->editing)
+                        Editar
+                    @else
+                        Cadastrar
+                    @endif
                 </button>
             </div>
 

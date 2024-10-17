@@ -29,9 +29,13 @@
                     </div>
                 </div>
             @else
+                @php
+                    $id_ong = \App\Models\Ong::select('id')->where('id_usuario','=',auth()->user()->id)->first();
+                @endphp
                 <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                     <div class="max-w-xl">
-                        <a href="{{ route('ongs.edit') }}">
+                        <a href="{{ route('ongs.edit',
+                        ['id' => $id_ong])}}">
                             <x-primary-button>
                                 Edite as informações da sua ONG
                             </x-primary-button>
