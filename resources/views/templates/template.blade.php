@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-    @yield('title', 'Meeting Faces')
+        @yield('title', 'Meeting Faces')
     </title>
-    <link rel="icon" href="{{asset('img/logo1.png')}}" type="image/icon type="image/x-icon">
+    <link rel="icon" href="{{asset('img/logo1.png')}}" type="image/icon type=" image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -23,11 +23,6 @@
     <style>
         .ly {
             font-family: 'Bitter', cursive;
-        }
-
-        .paragrafo {
-            text-indent: 3%;
-            text-align: justify;
         }
 
         .bd-placeholder-img {
@@ -134,12 +129,13 @@
                             class="nav-link px-2 text-body-secondary">Sobre nós</a></li>
                     <li class="nav-item"><a href="{{ route('some_nos') }}"
                             class="nav-link px-2 text-body-secondary">Some a nós</a></li>
-
                 </ul>
             </footer>
         </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
         @livewireScripts
     </body>
 

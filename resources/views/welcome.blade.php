@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -10,34 +10,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
   <title>{{config('APP_NAME','Meeting Faces')}}</title>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
   <style>
     .ly {
       font-family: 'Bitter', cursive;
       font-size: large;
-    }
-
-    .bloco:hover {
-      background-color: gray;
-      color: white;
-    }
-
-    .ti {
-      transform: translate(-50px, 0px);
-      transition: .3s all ease;
     }
   </style>
 </head>
 
 <body class="ly">
   <livewire:layout.navigation />
-  <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+  <div id="myCarousel" class="carousel slide my-6" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
         aria-label="Slide 1"></button>
@@ -100,80 +88,95 @@
   </div>
   <script>
     const throttle = _.throttle;
-
-
     const players =
       Array.from(document.querySelectorAll('.js-play-on-screen'));
-
-
     function isOnScreen(el) {
       let rect = el.getBoundingClientRect()
       return rect.top > 0 && rect.bottom < window.innerHeight;
     }
-
     function playAnimation(el) {
       if (isOnScreen(el)) el.style.animationPlayState = 'running';
     }
-
-
     const render = throttle(() => players.forEach(playAnimation), 150);
-
     render();
     window.addEventListener('scroll', render);
   </script>
-  <div class=" mt-3 bg-white p-5 text-dark " style=" height: 100%; width:100%">
-    <h2 class="animate__animated animate__slideInLeft   mt-5 text-center">
+  <div class="container-fluidbg-white text-dark p-5 mt-3 ">
+    <h2 class="animate__animated animate__slideInLeft mt-5 text-center">
       O que é o Meeting Faces?
     </h2>
 
-    <div class=" mt-3  mx-auto d-block" style="width: 850px;">
-      <p class="animate__animated animate__slideInRight fs-5 text-center mt-5 ">O Meeting Faces é um sistema tem como
-        objetivo principal <b> criar uma conexão entre moradores de rua e
-          seus familiares. </b> Isso deve-se por uma aplicação de busca que se dá dentro do banco de dados que o sistema
-        terá
-        e que possibilitará o usuário realizar pesquisas da pessoas que se encontram em situação de rua
-        através de filtros. Ademais, o projeto possui outros objetivos, como tornar esse problema social <b> mais
-          visível </b>,
-        fazendo com que mais pessoas contribuam para essa causa <b> realizando doações </b>.</p>
+    <div class="mt-3 mx-auto d-block container-fluid">
+      <p class="animate__animated animate__slideInRight fs-5 text-center mt-5 ">
+        O Meeting Faces é um sistema tem como objetivo principal <strong> criar uma conexão entre moradores de rua e
+          seus familiares.
+        </strong> Isso deve-se por uma aplicação de busca que se dá dentro do banco de dados que o sistema terá
+        e que possibilitará o usuário realizar pesquisas da pessoas que se encontram em situação de rua através de
+        filtros. Ademais, o projeto possui outros objetivos, como tornar esse problema social
+        <strong> mais visível
+        </strong>,
+        fazendo com que mais pessoas contribuam para essa causa <strong> realizando doações </strong>.
+      </p>
     </div>
   </div>
+  <div class="container-fluid flex justify-content-center align-items-center ">
+    <div class="row gx-6">
+      <div class="col-lg-4 col-md-12 mx-auto">
+        <div class="card" style="width: 18rem;">
+          <h3 class="card-title text-center pb-3">Sobre nós</h3>
+          <img class="card-img-top img-fluid " src="{{asset('img/logo2.png')}}" alt="Logo do projeto Meeting Faces" />
+          <a href="{{route('sobre_nos')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
+            Leia mais
+          </a>
+        </div>
+      </div>
 
+      <div class="col-lg-4 col-md-12 mx-auto">
+        <div class="card" style="width: 18rem;">
+          <h3 class="card-title text-center pb-3">ONG, some a nós</h3>
+          <img class="card-img-top img-fluid " src="{{asset('img/trabalho-em-equipe.png')}}"
+            alt="4 mãos: uma segurando a outra formando o ciclo" />
+          <a href="{{ route('some_nos')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
+            Leia mais
+          </a>
+        </div>
+      </div>
 
-
-  <div class=" d-flex justify-content-around bg-white align-items-center" style="height: 400px">
-    <div class=" float-start bg-white border w-25 rounded text-center p-2" style="height: 300px;">
-      <h3>Sobre nós</h3>
-      <img class="p-3" style="width: 200px; height: 170px;" src="{{asset('img/logo2.png')}}" alt="Meeting Faces">
-      <br>
-      <br>
-
-      <a href="{{route('sobre_nos')}}" class=" btn btn-outline-dark border border-dark me-2 py-2 px-4">
-        Leia mais
-      </a>
-    </div>
-
-    <div class="bloco float-end bg-white border w-25 rounded text-center p-2 " style="height: 300px;">
-      <h3>ONG, some a nós</h3>
-      <img class="p-3" style="width: 150px; height: 170px;" src="{{asset('img/trabalho-em-equipe.png')}}"
-        alt="4 mãos: uma segurando a outra formando o ciclo">
-      <br>
-      <br>
-      <a href="{{ route('some_nos')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
-        Leia mais
-      </a>
-    </div>
-
-    <div class=" float-end bg-white border w-25 rounded text-center p-2 " style="height: 300px;"">
-      <h3> Doe às Instituições</h3>
-      <img class=" p-3" style="width: 150px; height: 170px;" src="{{asset('img/coracao-de-maos-dadas.png')}}"
-      alt="uma mão recebendo um coração ">
-      <br>
-      <br>
-      <a href="{{route('ongs.doacao')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
-        Leia mais
-      </a>
+      <div class="col-lg-4 col-md-12 mx-auto">
+        <div class="card" style="width: 18rem;">
+          <h3 class="card-title text-center pb-3">Doe às Instituições</h3>
+          <img class="card-img-top img-fluid " src="{{asset('img/coracao-de-maos-dadas.png')}}"
+            alt="uma mão recebendo um coração" />
+          <a href="{{route('ongs.doacao')}}" class="btn btn-outline-dark border border-dark me-2 py-2 px-4">
+            Leia mais
+          </a>
+        </div>
+      </div>
     </div>
   </div>
+  <footer>
+    <div class="flex justify-content-center align-items-center">
+      <p class="col-md-4 mb-0 text-body-secondary">&copy; 2024</p>
+
+      <a href="/"
+        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-2" width="40" height="32">
+          <use xlink:href="#bootstrap" />
+        </svg>
+      </a>
+      <ul class="nav col-md-3  justify-content-end">
+        <li class="nav-item"><a href="{{ route('welcome') }}" class="nav-link px-2 text-body-secondary">Início</a></li>
+        <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link px-2 text-body-secondary">Encontros</a>
+        </li>
+        <li class="nav-item"><a href="{{ route('ongs.doacao') }}" class="nav-link px-2 text-body-secondary">Doações</a>
+        </li>
+        <li class="nav-item"><a href="{{ route('sobre_nos') }}" class="nav-link px-2 text-body-secondary">Sobre nós</a>
+        </li>
+        <li class="nav-item"><a href="{{ route('some_nos') }}" class="nav-link px-2 text-body-secondary">Some a nós</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
 </body>
 
 </html>

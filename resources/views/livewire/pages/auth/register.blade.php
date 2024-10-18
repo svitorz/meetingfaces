@@ -38,33 +38,39 @@ new #[Layout('layouts.guest')] class extends Component {
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 
-    public function mostrarSenha(): void
-    {
-        if ($this->tipo == 'password') {
-            $this->tipo = 'text';
-        } else {
-            $this->tipo = 'password';
+        public function mostrarSenha(): void
+        {
+            if ($this->tipo == 'password') {
+                $this->tipo = 'text';
+            } else {
+                $this->tipo = 'password';
+            }
         }
-    }
 }; ?>
 
 <div>
+
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    </head>
     <form wire:submit="register">
-        <div class="p-4 mt-5 col-4 offset-md-4 bg-white shadow-lg p-3 mb-5 bg-body-tertiary rounded" style="height:650px">
+        <div class="mt-5 col-lg-4 col-sm-12 col-md-6 offset-md-4 bg-white shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+            style="height:650px">
 
             <!-- Name -->
             <div>
                 <x-input-label for="nome" :value="__('Nome')" />
-                <x-text-input wire:model="nome" id="nome" class="block mt-1 w-full" type="text" name="nome"
-                    required autofocus autocomplete="nome" />
+                <x-text-input wire:model="nome" id="nome" class="block mt-1 w-full" type="text" name="nome" required
+                    autofocus autocomplete="nome" />
                 <x-input-error :messages="$errors->get('nome')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email"
-                    required autocomplete="username" />
+                <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required
+                    autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
             <!-- Data de nascimento -->
@@ -94,20 +100,20 @@ new #[Layout('layouts.guest')] class extends Component {
                 <button wire:click="mostrarSenha" x-data type="button">
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         @if ($this->tipo == 'password')
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                                <path
-                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                            <path
+                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                        </svg>
                         @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
-                                <path
-                                    d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                            <path
+                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
+                            <path
+                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+                        </svg>
                         @endif
                     </div>
                 </button>
@@ -126,20 +132,20 @@ new #[Layout('layouts.guest')] class extends Component {
                 <button wire:click="mostrarSenha" x-data type="button">
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                         @if ($this->tipo == 'password')
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                                <path
-                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                            <path
+                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                        </svg>
                         @else
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
-                                <path
-                                    d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
-                            </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                            <path
+                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
+                            <path
+                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z" />
+                        </svg>
                         @endif
                     </div>
                 </button>
@@ -157,6 +163,5 @@ new #[Layout('layouts.guest')] class extends Component {
                 </button>
             </div>
         </div>
-
     </form>
 </div>

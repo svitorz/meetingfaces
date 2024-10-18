@@ -8,16 +8,12 @@ use Livewire\Component;
 class SearchBox extends Component
 {
     public $name = '';
-    public $cidades;
+    public $cidades = [];
 
     public function mount(): void
     {
+        $this->cidades[0] = "Cidades";
         $this->cidades = Morador::select('cidade_atual')->distinct()->get();
-    }
-
-    public function removeInputText()
-    {
-        $this->reset('name');
     }
 
     public function render()
