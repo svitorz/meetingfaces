@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Morador;
 use App\Models\Ong;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,11 +15,6 @@ class OngController extends Controller
      */
     public function index()
     {
-        $authUser = Auth::user()->id;
-        $ongId = Ong::where('id_usuario', $authUser)->first()->id;
-        $moradores = Morador::where('id_ong', $ongId)->paginate(12);
-        $link_morador = true;
-        return view('dashboard', ['moradores' => $moradores, 'link_morador' => $link_morador]);
     }
 
     /**
@@ -49,6 +45,19 @@ class OngController extends Controller
      */
     public function destroy(Ong $ong)
     {
-        //
+        $authUser = Auth::user();
+        $ong = Ong::findOrFail($ong->id);
+
+        if ($authUser->id != $ong->id_usuario) {
+            return abort(401);
+        }
+
+        $ong->delete();
+        $user = User::findOrFail($authUser->id);
+        $user->permissao = 'comum';
+        $user->save();
+
+        session()->flash('msg', 'Ong deletada com sucesso!');
+        return redirect()->route('dashboard');
     }
 }

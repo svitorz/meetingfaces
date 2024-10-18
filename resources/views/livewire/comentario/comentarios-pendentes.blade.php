@@ -1,6 +1,4 @@
-<div class="relative overflow-x-auto">
-
-    @endif
+<div class="relative overflow-x-auto"> 
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
@@ -20,14 +18,14 @@
                     <a href="{{route('morador.show',['id' => $comentario->id_morador])}}">{{$comentario->nome_completo}}</a>
                 </th>
                 <th>
-                    <a href="{{route('comentarios.pendentes.aprovar',['id_comentario' => $comentario->id_comentario])}}" class="p-4 bg-blue-700 hover:bg-blue-400 text-white hover:text-gray-500">
+                    <button wire:click="aprovar({{$comentario->id_comentario}})" class="p-4 bg-blue-700 hover:bg-blue-400 text-white hover:text-gray-500">
                         Aprovar
-                    </a>
+                    </button>
                 </th>
                 <th>
-                    <a href="{{route('comentarios.pendentes.excluir',['id_comentario' => $comentario->id_comentario])}}" class="p-4 bg-red-700 hover:bg-red-400 text-white hover:text-gray-500">
+                    <button wire:click="excluir({{$comentario->id_comentario}})" class="p-4 bg-red-700 hover:bg-red-400 text-white hover:text-gray-500">
                         Excluir
-                    </a>
+                    </button>
                 </th>
             </tr>
             @endforeach
