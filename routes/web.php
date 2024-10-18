@@ -7,6 +7,7 @@ use App\Livewire\Comentario\ComentariosPendentes;
 use App\Livewire\Morador\CreateMorador;
 use App\Livewire\Morador\ListarTodos;
 use App\Livewire\Morador\Show;
+use App\Livewire\Ongs\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Ongs\CreateOng;
 use App\Livewire\Ongs\Doacao;
 use App\Livewire\SobreNos;
@@ -36,7 +37,8 @@ Route::prefix('/ongs')->group(function () {
     Route::post('/store', [OngController::class, 'store'])
         ->middleware(['auth', UsuarioTemPermissao::class.':comum'])
         ->name('ongs.store');
-    Route::get('/dashboard', [OngController::class, 'index'])
+
+    Route::get('/dashboard', AdminDashboard::class)
         ->middleware(UsuarioTemPermissao::class.':admin')
         ->name('ongs.dashboard');
 
