@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('nome_familiar_proximo')->nullable();
             $table->string('grau_parentesco')->nullable();
             $table->date('data_nasc')->nullable();
-            $table->foreignId('id_ong')->constrained('ongs');
+            $table->foreignId('id_ong')->constrained('ongs')->cascadeOnDelete();
         });
     }
 

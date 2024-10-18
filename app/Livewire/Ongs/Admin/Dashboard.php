@@ -17,8 +17,6 @@ class Dashboard extends Component
     }
     public function render()
     {
-        $ong = Ong::where('id_usuario', '=', Auth::user()->id)->first();
-
-        return view('livewire.ongs.admin.dashboard', ['ong' => $ong])->extends('templates.template')->slot('content');
+        return view('livewire.ongs.admin.dashboard', ['ong' => Ong::where('id_usuario', '=', Auth::user()->id)->first()])->extends('templates.template')->slot('content');
     }
 }

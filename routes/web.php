@@ -3,7 +3,6 @@
 use App\Http\Controllers\MoradorController;
 use App\Http\Controllers\OngController;
 use App\Http\Middleware\UsuarioTemPermissao;
-use App\Livewire\Comentario\ComentariosPendentes;
 use App\Livewire\Morador\CreateMorador;
 use App\Livewire\Morador\ListarTodos;
 use App\Livewire\Morador\Show;
@@ -48,7 +47,7 @@ Route::prefix('/ongs')->group(function () {
 
     Route::get('/show/{id}', \App\Livewire\Ongs\Show::class)->middleware(['auth'])->name('ongs.show');
 
-    Route::delete('/destroy/{id}', [OngController::class, 'destro   y'])
+    Route::post('/destroy/{ong}', [OngController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('ongs.destroy');
 });
