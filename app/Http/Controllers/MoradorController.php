@@ -26,7 +26,7 @@ class MoradorController extends Controller
             return redirect()->to(route('dashboard'));
         }
 
-        if (! empty($request->name) && ! empty($request->cidade)) {
+        if (!empty($request->name) && !empty($request->cidade)) {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'cidade' => 'required|string|max:255',
@@ -43,14 +43,14 @@ class MoradorController extends Controller
                     ->orderBy('nome_completo')
                     ->paginate(12),
             ]);
-        } elseif (! empty($request->name) && empty($request->cidade)) {
+        } elseif (!empty($request->name) && empty($request->cidade)) {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
             ]);
 
             return view('dashboard', [
                 'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
-                    ->where('nome_completo', 'ilike', '%'.$validated['name'].'%')
+                    ->where('nome_completo', 'ilike', '%' . $validated['name'] . '%')
                     ->orderBy('nome_completo')
                     ->paginate(12),
             ]);
@@ -79,13 +79,13 @@ class MoradorController extends Controller
         $ong = Ong::where('id_usuario', '=', auth()->id())
             ->where('id', '=', $morador->id_ong)
             ->exists();
-        if (! $ong) {
+        if (!$ong) {
             abort(401);
         }
 
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
 
-        return redirect()->to(route('dashboard'));
+        return redirect()->to(route('ongs.dashboard'));
     }
 }

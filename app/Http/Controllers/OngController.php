@@ -14,11 +14,6 @@ class OngController extends Controller
      */
     public function index()
     {
-        $authUser = Auth::user()->id;
-        $ongId = Ong::where('id_usuario', $authUser)->first()->id;
-        $moradores = Morador::where('id_ong', $ongId)->paginate(12);
-        $link_morador = true;
-        return view('dashboard', ['moradores' => $moradores, 'link_morador' => $link_morador]);
     }
 
     /**
@@ -49,6 +44,18 @@ class OngController extends Controller
      */
     public function destroy(Ong $ong)
     {
-        //
+        $user = Auth::user();
+        $ong = Ong::findOrFail($ong->id);
+
+        if ($user->id != $ong->id_usuario) {
+            return abort(401);
+        }
+
+        $ong->delete();
+        $user->permissao = 'comum';
+        $user->save();
+
+        session()->flash('msg', 'Ong deletada com sucesso!');
+        return redirect()->route('dashboard');
     }
 }

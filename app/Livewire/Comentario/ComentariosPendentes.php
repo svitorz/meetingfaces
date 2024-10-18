@@ -5,6 +5,8 @@ namespace App\Livewire\Comentario;
 use Livewire\Component;
 use App\Models\Comentario;
 
+use function Livewire\Volt\mount;
+
 class ComentariosPendentes extends Component
 {
     public $comentarios = '';
@@ -25,19 +27,12 @@ class ComentariosPendentes extends Component
             ->where('ongs.id_usuario', '=', $this->id_usuario)
             ->get();
     }
-    public function render()
-    {
-        return view('livewire.comentario.comentarios-pendentes')
-            ->extends('templates.template')
-            ->slot('content');
-    }
-
     public function aprovar(int $id_comentario)
     {
         $comentario = Comentario::find($id_comentario);
         $comentario->situacao = 'aprovado';
         $comentario->save();
-        return redirect()->to(route('comentarios.pendentes'));
+        $this->mount();
     }
 
     public function excluir(int $id_comentario)
@@ -45,6 +40,12 @@ class ComentariosPendentes extends Component
         $comentario = Comentario::find($id_comentario);
         $comentario->situacao = 'reprovado';
         $comentario->save();
-        return redirect()->to(route('comentarios.pendentes'));
+        $this->mount();
+
     }
+    public function render()
+    {
+        return view('livewire.comentario.comentarios-pendentes');
+    }
+
 }

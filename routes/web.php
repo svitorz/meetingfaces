@@ -47,6 +47,10 @@ Route::prefix('/ongs')->group(function () {
     Route::get('/doacao', Doacao::class)->name('ongs.doacao');
 
     Route::get('/show/{id}', \App\Livewire\Ongs\Show::class)->middleware(['auth'])->name('ongs.show');
+
+    Route::delete('/destroy/{id}', [OngController::class, 'destro   y'])
+        ->middleware(UsuarioTemPermissao::class . ':admin')
+        ->name('ongs.destroy');
 });
 
 Route::prefix('/moradores')->middleware('auth')->group(function () {
@@ -72,12 +76,6 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
 
     Route::get('/find', [MoradorController::class, 'find'])
         ->name('morador.find');
-});
-
-Route::prefix('/comentarios')->group(function () {
-    Route::get('/pendentes', ComentariosPendentes::class)->name('comentarios.pendentes');
-    Route::get('/aprovar/{id_comentario}', [ComentariosPendentes::class, 'aprovar'])->name('comentarios.pendentes.aprovar');
-    Route::get('/excluir/{id_comentario}', [ComentariosPendentes::class, 'excluir'])->name('comentarios.pendentes.excluir');
 });
 
 require __DIR__ . '/auth.php';
