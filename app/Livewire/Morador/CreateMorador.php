@@ -50,7 +50,7 @@ class CreateMorador extends Component
     public function mount($id = null): void
     {
 
-        if (isset($id) && !empty($id)) {
+        if (isset($id) && ! empty($id)) {
             $this->morador = Morador::findOrFail($id);
             /**
              * Método para permitir que apenas usuários administradores da ong
@@ -60,7 +60,7 @@ class CreateMorador extends Component
                 ->where('id', '=', $this->morador->id_ong)
                 ->exists();
 
-            if (!$ong) {
+            if (! $ong) {
                 abort(401);
             }
 
@@ -79,7 +79,7 @@ class CreateMorador extends Component
     public function update(): Redirector
     {
         if (empty($this->profile_picture)) {
-            $name = md5($this->profile_picture . microtime()) . '.' . $this->profile_picture->extension();
+            $name = md5($this->profile_picture.microtime()).'.'.$this->profile_picture->extension();
             $this->profile_picture->storeAs('photos', $name);
         } else {
             $name = 'user.png';
@@ -101,8 +101,8 @@ class CreateMorador extends Component
     public function create(): Redirector
     {
         $this->validate();
-        if (!empty($this->profile_picture)) {
-            $name = md5($this->profile_picture . microtime()) . '.' . $this->profile_picture->extension();
+        if (! empty($this->profile_picture)) {
+            $name = md5($this->profile_picture.microtime()).'.'.$this->profile_picture->extension();
             $this->profile_picture->storeAs('photos', $name);
         } else {
             $name = 'user.png';
