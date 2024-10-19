@@ -4,15 +4,17 @@ namespace Tests\Feature\Morador;
 
 use App\Livewire\Morador\CreateMorador;
 use App\Models\Morador;
-use App\Models\User;
 use App\Models\Ong;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 use Tests\TestCase;
 
 class MoradorTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * Testar se um administrador pode ver o component de criação do morador
      */
@@ -27,7 +29,7 @@ class MoradorTest extends TestCase
 
         $response
             ->assertOK()
-            ->assertSeeVolt('morador.create');
+            ->assertSeeLivewire(CreateMorador::class);
     }
 
     /**
@@ -51,10 +53,10 @@ class MoradorTest extends TestCase
     public function test_moradores_can_be_created(): void
     {
         $user = User::factory()->admin()->create();
-        $ong = Ong::factory()->create()->value('id');
+        $ong = Ong::factory()->create(['id_usuario' => $user->id])->value('id');
 
-        $componente = Livewire::
-            actingAs($user)
+        $authUser = Auth::loginUsingId($user);
+        $componente = Livewire::actingAs($authUser)
             ->test(CreateMorador::class)
             ->set('nome_completo', 'Nome Teste')
             ->set('data_nasc', date('d/M/Y', strtotime('01/01/1990')))
@@ -68,7 +70,7 @@ class MoradorTest extends TestCase
 
         $morador = Morador::latest('id')->first();
 
-        $componente->assertRedirect("/moradores/show/$morador->id");
+        $componente->assertStatus(200)->assertRedirect("/moradores/show/{$morador->id}");
     }
 
     /*
@@ -76,11 +78,12 @@ class MoradorTest extends TestCase
      */
     public function test_morador_can_be_editated(): void
     {
-        $user = User::factory()->admin()->create();
-        $ong = Ong::factory()->create()->value('id');
-        $morador = Morador::factory()->create()->value('id');
+        $user = User::factory()->admin()->create()->value('id');
+        $ong = Ong::factory()->create(['id_usuario' => $user])->value('id');
+        $morador = Morador::factory()->create(['id_ong' => $ong])->value('id');
 
-        $componente = Livewire::actingAs($user)
+        $authUser = Auth::loginUsingId($user);
+        $componente = Livewire::actingAs($authUser)
             ->test(CreateMorador::class, ['id' => $morador])
             ->set('nome_completo', 'Nome Update')
             ->set('data_nasc', date('d/M/Y', strtotime('01/01/1990')))

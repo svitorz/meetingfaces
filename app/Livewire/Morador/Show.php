@@ -2,16 +2,19 @@
 
 namespace App\Livewire\Morador;
 
-use Livewire\Component;
 use App\Models\Morador;
 use App\Models\Ong;
 use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 class Show extends Component
 {
     public Morador $morador;
-    public string $title = "Show morador";
+
+    public string $title = 'Show morador';
+
     public $comentarios;
+
     public bool $isAdmin;
 
     public function mount(int $id)
@@ -27,7 +30,7 @@ class Show extends Component
         $ong = Ong::where('id_usuario', '=', auth()->id())
             ->where('id', '=', $this->morador->id_ong)
             ->exists();
-
+        // verifica se ong existe
         if ($ong) {
             $this->isAdmin = true;
         } else {
