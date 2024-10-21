@@ -21,7 +21,7 @@ $ docker compose up -d --build
 E por fim, para instalar as dependências e rodar as migrações, utilize:
 
 ```bash
-$ docker compose exec app make install
+$ docker compose exec -u root app make install
 ```
 
 E pronto, a aplicação está rodando.
