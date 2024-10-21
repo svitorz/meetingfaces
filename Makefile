@@ -21,7 +21,6 @@ clear:
 
 .PHONY: dt
 dt:
-@php artisan cache:clear
-@composer dump-autoload
-@php artisan test
-
+	@php artisan cache:clear
+	@composer dump-autoload
+	@php artisan test
