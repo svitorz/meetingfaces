@@ -8,18 +8,18 @@ Meeting Faces foi desenvolvido em [Laravel](https://laravel.com), utilizando a b
 
 ## Para clonar o projeto:
 
-´´´bash
+```bash
 $ git clone git@github.com:svitorz/meetingfaces.git
-´´´
+```
 
 Após isso, utilize docker para construir e subir a aplicação.
 
-´´bash
+`bash
 $ docker compose up -d --build
-´´
+`
 
 E por fim, para instalar as dependências e rodar as migrações, utilize:
-´´bash
+`bash
 $ docker compose exec app make install
-´´
+`
 E pronto, a aplicação está rodando.
