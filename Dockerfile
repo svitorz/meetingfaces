@@ -45,8 +45,5 @@ RUN chown -R $user:$user /var/www/*
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-#Get .env variables
-RUN cp -r .env.example .env
-
 # RUN npm install && npm run build
 USER $user
