@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- TODO: remove cdn and install dependencies. --!>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +38,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="https://www.ipea.gov.br/portal/images/noticias/2022/2022-12-7_populacao_de_rua_1.jpg"
-          class="bd-placeholder-img" width="100%" height="550px" alt="" aria-hidden="true"
+          class="bd-placeholder-img" width="100%" height="34rem" alt="" aria-hidden="true"
           preserveAspectRatio="xMidYMid slice" focusable="false">
         <div class="container">
           <div class="carousel-caption">
