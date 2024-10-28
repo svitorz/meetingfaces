@@ -10,7 +10,7 @@
      <link rel="icon" href="{{asset('img/logo1.png')}}" type="image/icon type="image/x-icon">
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/sass/app.scss'])
 </head>
 
 <body>
