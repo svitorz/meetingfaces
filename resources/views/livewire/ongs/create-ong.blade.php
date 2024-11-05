@@ -20,13 +20,13 @@
                 <div class=" mb-3 col-lg-3 col-md-12  ">
                     <x-input-label for="nome_completo" :value="__('Nome Fantasia')" />
                     <x-text-input placeholder="Instituição Exemplo" wire:model="nome_completo" id="nome_completo"
-                        class="block mt-1 w-full" type="text" name="nome_completo" required />
+                        class="tw-block tw-mt-1 tw-w-full" type="text" name="nome_completo" required />
                     <x-input-error :messages="$errors->get('nome_completo')" class="mt-2" />
                 </div>
 
                 <div class=" mb-3 col-lg-3 col-md-12  ">
                     <x-input-label for="sigla" :value="__('Sigla')" />
-                    <x-text-input placeholder="IEM" wire:model="sigla" id="sigla" class="block mt-1 w-full" type="text"
+                    <x-text-input placeholder="IEM" wire:model="sigla" id="sigla" class="tw-block tw-mt-1 tw-w-full" type="text"
                         name="sigla" required />
                     <x-input-error :messages="$errors->get('sigla')" class="mt-2" />
                 </div>
@@ -42,14 +42,14 @@
                 </div>
                 <div class=" mb-3 col-lg-3 col-md-12  ">
                     <x-input-label for="data_fundacao" :value="__('Data de fundação')" />
-                    <x-text-input wire:model="data_fundacao" id="data_fundacao" class="block mt-1 w-full" type="date"
+                    <x-text-input wire:model="data_fundacao" id="data_fundacao" class="tw-block tw-mt-1 tw-w-full" type="date"
                         name="data_fundacao" required />
                     <x-input-error :messages="$errors->get('data_fundacao')" class="mt-2" />
                 </div>
                 <div class=" mb-3 col-12">
                     <x-input-label for="descricao" :value="__('Descrição')" />
                     <textarea wire:model="descricao" placeholder="Descreva em até 1024 caracteres a sua organização."
-                        name="descricao" id="descricao" class="block mt-1 w-full form-control" required></textarea>
+                        name="descricao" id="descricao" class="tw-block tw-mt-1 tw-w-full form-control" required></textarea>
                     <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
                 </div>
             </div>
@@ -58,19 +58,19 @@
                 <div class=" mb-3 col-lg-4 col-md-12  ">
                     <x-input-label for="telefone" :value="__('Telefone')" />
                     <x-text-input placeholder="(99)99999-9999" wire:model="telefone" id="telefone"
-                        class="block mt-1 w-full" type="text" x-mask="(99)99999-9999" name="telefone" required />
+                        class="tw-block tw-mt-1 tw-w-full" type="text" x-mask="(99)99999-9999" name="telefone" required />
                     <x-input-error :messages="$errors->get('telefone')" class="mt-2" />
                 </div>
 
                 <div class="col-lg-4 col-md-12">
                     <x-input-label for="email" :value="__('Email')" />
                     <x-text-input placeholder="usuario@gmail.com" wire:model="email" id="email"
-                        class="block mt-1 w-full" type="email" name="email" required />
+                        class="tw-block tw-mt-1 tw-w-full" type="email" name="email" required />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
                 <div class=" mb-3 col-lg-4 col-md-12  ">
                     <x-input-label for="url" :value="__('Url do site (se houver)')" />
-                    <x-text-input placeholder="organizacao.com.br" wire:model="url" id="url" class="block mt-1 w-full"
+                    <x-text-input placeholder="organizacao.com.br" wire:model="url" id="url" class="tw-block tw-mt-1 tw-w-full"
                         type="url" name="url" />
                     <x-input-error :messages="$errors->get('url')" class="mt-2" />
                 </div>
@@ -78,7 +78,7 @@
             <div class="row">
                 <div class=" col-lg-4 col-md-12  ">
                     <x-input-label for="cnpj" :value="__('Cnpj')" />
-                    <x-text-input wire:model="cnpj" id="cnpj" class="block mt-1 w-full" type="text" name="cnpj"
+                    <x-text-input wire:model="cnpj" id="cnpj" class="tw-block tw-mt-1 tw-w-full" type="text" name="cnpj"
                         placeholder="99.999.999/9999-99" x-mask="99.999.999/9999-99" required />
                     <x-input-error :messages="$errors->get('cnpj')" class="mt-2" />
                 </div>
@@ -105,14 +105,14 @@
 
                 <div class=" mb-3 col-lg-4 col-md-12">
                     <x-input-label for="rua" :value="__('Rua')" />
-                    <x-text-input wire:model="rua" id="rua" class="block mt-1 w-full" type="text" name="rua"
+                    <x-text-input wire:model="rua" id="rua" class="tw-block tw-mt-1 tw-w-full" type="text" name="rua"
                         placeholder="Rua São Paulo" />
                     <x-input-error :messages="$errors->get('rua')" class="mt-2" />
                 </div>
 
                 <div class=" mb-3 col-lg-2 col-md-12 ">
                     <x-input-label for="numero" :value="__('Número')" />
-                    <x-text-input wire:model="numero" id="numero" class="block mt-1 w-full" type="number" name="numero"
+                    <x-text-input wire:model="numero" id="numero" class="tw-block tw-mt-1 tw-w-full" type="number" name="numero"
                         placeholder="123" />
                     <x-input-error :messages="$errors->get('numero')" class="mt-2" />
                 </div>
@@ -120,7 +120,7 @@
 
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="bairro" :value="__('Bairro')" />
-                    <x-text-input wire:model="bairro" id="bairro" class="block mt-1 w-full" type="text" name="bairro"
+                    <x-text-input wire:model="bairro" id="bairro" class="tw-block tw-mt-1 tw-w-full" type="text" name="bairro"
                         placeholder="Centro" />
                     <x-input-error :messages="$errors->get('bairro')" class="mt-2" />
                 </div>
@@ -128,21 +128,21 @@
             <div class="row">
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="cidade" :value="__('Cidade')" />
-                    <x-text-input wire:model="cidade" id="cidade" class="block mt-1 w-full" type="text" name="cidade"
+                    <x-text-input wire:model="cidade" id="cidade" class="tw-block tw-mt-1 tw-w-full" type="text" name="cidade"
                         placeholder="Campinas" />
                     <x-input-error :messages="$errors->get('cidade')" class="mt-2" />
                 </div>
 
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="estado" :value="__('Estado')" />
-                    <x-text-input wire:model="estado" id="estado" class="block mt-1 w-full" type="text" name="estado"
+                    <x-text-input wire:model="estado" id="estado" class="tw-block tw-mt-1 tw-w-full" type="text" name="estado"
                         placeholder="São Paulo" />
                     <x-input-error :messages="$errors->get('estado')" class="mt-2" />
                 </div>
 
                 <div class=" mb-3 col-4  ">
                     <x-input-label for="pais" :value="__('Pais')" />
-                    <x-text-input wire:model="pais" id="pais" class="block mt-1 w-full" type="text" name="pais"
+                    <x-text-input wire:model="pais" id="pais" class="tw-block tw-mt-1 tw-w-full" type="text" name="pais"
                         placeholder="Brasil" />
                     <x-input-error :messages="$errors->get('pais')" class="mt-2" />
                 </div>

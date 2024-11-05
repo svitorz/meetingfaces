@@ -61,7 +61,7 @@ new #[Layout('layouts.guest')] class extends Component {
             <!-- Name -->
             <div>
                 <x-input-label for="nome" :value="__('Nome')" />
-                <x-text-input wire:model="nome" id="nome" class="block mt-1 w-full" type="text" name="nome" required
+                <x-text-input wire:model="nome" id="nome" class="tw-block tw-mt-1 tw-w-full" type="text" name="nome" required
                     autofocus autocomplete="nome" />
                 <x-input-error :messages="$errors->get('nome')" class="mt-2" />
             </div>
@@ -69,14 +69,14 @@ new #[Layout('layouts.guest')] class extends Component {
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
-                <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required
+                <x-text-input wire:model="email" id="email" class="tw-block tw-mt-1 tw-w-full" type="email" name="email" required
                     autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
             <!-- Data de nascimento -->
             <div class="mt-4">
                 <x-input-label for="data_nasc" :value="__('Data de nascimento')" />
-                <x-text-input wire:model="data_nasc" id="data_nasc" class="block mt-1 w-full" type="date"
+                <x-text-input wire:model="data_nasc" id="data_nasc" class="tw-block tw-mt-1 tw-w-full" type="date"
                     name="data_nasc" required />
                 <x-input-error :messages="$errors->get('data_nasc')" class="mt-2" />
             </div>
@@ -85,7 +85,7 @@ new #[Layout('layouts.guest')] class extends Component {
             <!-- telefone -->
             <div class="mt-4">
                 <x-input-label for="telefone" :value="__('Telefone')" />
-                <x-text-input wire:model="telefone" id="telefone" class="block mt-1 w-full" type="text"
+                <x-text-input wire:model="telefone" id="telefone" class="tw-block tw-mt-1 tw-w-full" type="text"
                     x-mask="(99) 99999-9999" x-data name="telefone" required />
                 <x-input-error :messages="$errors->get('telefone')" class="mt-2" />
             </div>
@@ -94,7 +94,7 @@ new #[Layout('layouts.guest')] class extends Component {
             <div class="mt-4 relative">
                 <x-input-label for="password" :value="__('Senha')" />
 
-                <x-text-input wire:model="password" id="password" class="block mt-1 w-full pr-10"
+                <x-text-input wire:model="password" id="password" class="tw-block tw-mt-1 tw-w-full pr-10"
                     type="{{ $this->tipo }}" name="password" required autocomplete="new-password" />
 
                 <button wire:click="mostrarSenha" x-data type="button">
@@ -122,25 +122,25 @@ new #[Layout('layouts.guest')] class extends Component {
             </div>
 
             <!-- Confirm password -->
-            <div class="mt-4 relative">
+            <div class="tw-mt-4 tw-relative">
                 <x-input-label for="password_confirmation" :value="__('Confirmar senha')" />
 
                 <x-text-input wire:model="password_confirmation" id="password_confirmation"
-                    class="block mt-1 w-full pr-10" type="{{ $this->tipo }}" name="password_confirmation" required
+                    class="tw-block tw-mt-1 tw-w-full tw-pr-10" type="{{ $this->tipo }}" name="password_confirmation" required
                     autocomplete="new-password" />
 
                 <button wire:click="mostrarSenha" x-data type="button">
-                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                    <div class="tw-absolute tw-inset-y-0 tw-right-0 tw-pr-3 tw-flex tw-items-center tw-text-sm tw-leading-5">
                         @if ($this->tipo == 'password')
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            class="tw-bi tw-bi-eye-fill" viewBox="0 0 16 16">
                             <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
                             <path
                                 d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
                         </svg>
                         @else
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                            class="tw-bi tw-bi-eye-slash-fill" viewBox="0 0 16 16">
                             <path
                                 d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z" />
                             <path
@@ -153,8 +153,8 @@ new #[Layout('layouts.guest')] class extends Component {
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="col-5 d-grid gap-2 mx-auto " href="{{ route('login') }}">
+            <div class="tw-flex tw-items-center tw-justify-end tw-mt-4">
+                <a class="tw-col-5 tw-d-grid tw-gap-2 tw-mx-auto " href="{{ route('login') }}">
                     {{ __('Já possui uma conta?') }}
                 </a>
 

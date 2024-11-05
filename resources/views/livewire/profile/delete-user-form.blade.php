@@ -25,11 +25,11 @@ new class extends Component
 
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="tw-text-lg tw-font-medium tw-text-gray-900">
             {{ __('Excluir conta') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="tw-mt-1 tw-text-sm tw-text-gray-600">
             {{ __('Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Antes de excluir sua conta, baixe todos os dados ou informações que deseja reter.') }}
         </p>
     </header>
@@ -65,12 +65,12 @@ new class extends Component
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
-            <div class="mt-6 flex justify-end">
+            <div class="tw-mt-6 tw-flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
                     {{ __('Cancelar') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ms-3">
+                <x-danger-button class="tw-ms-3">
                     {{ __('Deletar conta') }}
                 </x-danger-button>
             </div>

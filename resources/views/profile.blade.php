@@ -19,8 +19,8 @@
             </div>
         </div>
         @if (auth()->user()->permissao == 'comum')
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <div class="max-w-xl">
+        <div class="tw-p-4 sm:tw-p-8 tw-bg-white tw-shadow sm:tw-rounded-lg">
+            <div class="tw-max-w-xl">
                 <a href="{{ route('ongs.create') }}">
                     <x-primary-button>
                         Cadastre sua ONG
@@ -32,8 +32,8 @@
         @php
              $id_ong = \App\Models\Ong::select('id')->where('id_usuario','=',auth()->user()->id)->first();
         @endphp
-        <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-            <div class="max-w-xl">
+        <div class="tw-p-4 sm:tw-p-8 tw-bg-white tw-shadow sm:tw-rounded-lg">
+            <div class="tw-max-w-xl">
                 <a href="{{ route('ongs.edit',
                         ['id' => $id_ong])}}">
                     <x-primary-button>
