@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Comentario;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use App\Models\Comentario;
 
@@ -9,43 +10,30 @@ use function Livewire\Volt\mount;
 
 class ComentariosPendentes extends Component
 {
-    public $comentarios = '';
-    public string $id_usuario;
+    public $comentarios = [];
 
-    public function __construct()
+    public function mount(): void
     {
-        $this->id_usuario = auth()->id();
+        $this->comentarios = (new Comentario)->getComentariosPendentes(Auth::id());
     }
+    public function aprovar(int $id_comentario): void
 
-    public function mount()
     {
-        $this->comentarios = Comentario::
-            select('moradores.nome_completo', 'moradores.id as id_morador', 'comentarios.comentario', 'comentarios.id as id_comentario')
-            ->join('moradores', 'moradores.id', '=', 'comentarios.id_morador')
-            ->join('ongs', 'ongs.id', '=', 'moradores.id_ong')
-            ->where('comentarios.situacao', '=', 'pendente')
-            ->where('ongs.id_usuario', '=', $this->id_usuario)
-            ->get();
-    }
-    public function aprovar(int $id_comentario)
-    {
-        $comentario = Comentario::find($id_comentario);
+        $comentario = Comentario::findOrFail($id_comentario);
         $comentario->situacao = 'aprovado';
         $comentario->save();
         $this->mount();
     }
 
-    public function excluir(int $id_comentario)
+    public function excluir(int $id_comentario): void
     {
-        $comentario = Comentario::find($id_comentario);
+        $comentario = Comentario::findOrFail($id_comentario);
         $comentario->situacao = 'reprovado';
         $comentario->save();
         $this->mount();
-
     }
     public function render()
     {
         return view('livewire.comentario.comentarios-pendentes');
     }
-
 }
