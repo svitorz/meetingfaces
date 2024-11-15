@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -26,6 +27,11 @@ class User extends Authenticatable
         'data_nasc',
         'permissao',
     ];
+
+    public function role()
+    {
+        return Auth::user()->permissao;
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,11 +58,12 @@ class User extends Authenticatable
 
     public function ong(): HasOne
     {
-        return $this->hasOne(Ong::class);
+        return $this->hasOne(Ong::class, 'id_usuario');
     }
 
     public function comentarios(): HasMany
     {
         return $this->hasMany(Comentario::class);
     }
+
 }

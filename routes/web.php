@@ -58,6 +58,9 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.create');
 
+    Route::post('/store', [MoradorController::class, 'create'])
+        ->name('morador.store');
+
     Route::get('/show/{id}', Show::class)
         ->name('morador.show');
 
@@ -65,9 +68,12 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.all');
 
-    Route::get('/edit/{id}', CreateMorador::class)
+    Route::get('/edit/{id}', [MoradorController::class, 'edit'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.edit');
+
+    Route::post('/update/{Morador}', [MoradorController::class, 'update'])
+        ->name('morador.update');
 
     Route::get('/destroy/{id}', [MoradorController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
