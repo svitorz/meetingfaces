@@ -24,13 +24,13 @@ class Morador extends Model
         'profile_picture',
     ];
 
-    public function ongs(): BelongsTo
+    public function ong(): BelongsTo
     {
-        return $this->belongsTo(Ong::class);
+        return $this->belongsTo(Ong::class, 'id_ong');
     }
 
     public function comentarios(): HasMany
     {
-        return $this->hasMany(Comentario::class);
+        return $this->hasMany(Comentario::class, 'id_morador');
     }
 }

@@ -25,9 +25,10 @@
                 </th>
                 <th>
                     <a
-                        href="{{route('morador.show',['id' => $comentario->id_morador])}}">{{$comentario->nome_completo}}</a>
+                        href="{{route('morador.show',['morador' => $comentario->id_morador])}}">{{$comentario->nome_completo}}</a>
                 </th>
-                <th scope="row" class="tw-px-6 tw-py-4 tw-font-medium tw-text-gray-900 tw-whitespace-nowrap tw-break-all">
+                <th scope="row"
+                    class="tw-px-6 tw-py-4 tw-font-medium tw-text-gray-900 tw-whitespace-nowrap tw-break-all">
                     {{$comentario->comentario}}
                 </th>
             </tr>

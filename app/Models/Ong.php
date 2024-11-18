@@ -40,6 +40,6 @@ class Ong extends Model
 
     public function morador(): HasMany
     {
-        return $this->hasMany(Morador::class);
+        return $this->hasMany(Morador::class, 'id_ong');
     }
 }

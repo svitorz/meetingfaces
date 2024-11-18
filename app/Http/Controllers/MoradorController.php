@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchMoradorRequest;
 use App\Http\Requests\StoreMoradorRequest;
 use App\Models\Morador;
 use App\Models\Ong;
+use App\Policies\OngPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Service\MoradorService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 
 class MoradorController extends Controller
 {
@@ -45,7 +46,34 @@ class MoradorController extends Controller
 
         $service->store($morador);
 
-        return to_route('morador.create')->with('msg', 'Morador cadastrado com sucesso!');
+        return to_route('morador.show', ['morador' => $morador->id])->with('msg', 'Morador cadastrado com sucesso!');
+    }
+
+    /**
+     * Summary of show
+     * @param \App\Models\Morador $morador
+     * @return mixed
+     */
+    public function show(Morador $morador): mixed
+    {
+        // Carregar os comentários aprovados junto com o morador
+        $morador = $morador->load([
+            'comentarios' => function ($query) {
+                $query->where('situacao', '=', 'aprovado');
+            }
+        ]);
+
+        // Obtenha o usuário autenticado
+        $user = Auth::user();
+
+        // Verifique se o usuário autenticado é o administrador da ONG
+        $isAdmin = optional($user->ong)->id === $morador->id_ong;
+
+        // Retorne a view com as variáveis
+        return view('livewire.morador.show', [
+            'morador' => $morador,
+            'isAdmin' => $isAdmin,
+        ]);
     }
 
     /**
@@ -76,12 +104,12 @@ class MoradorController extends Controller
 
         $service->store($morador);
 
-        return to_route('morador.create')->with('msg', 'Morador cadastrado com sucesso!');
+        return to_route('morador.show', ['morador' => $morador])->with('msg', 'Morador cadastrado com sucesso!');
     }
 
     public function edit(Morador $morador)
     {
-
+        return view('livewire.morador.edit-morador', ['morador' => $morador]);
     }
     /**
      * Display a listing of the resource.
@@ -95,68 +123,41 @@ class MoradorController extends Controller
         return view('dashboard', ['moradores' => $moradores]);
     }
 
-    public function find(Request $request)
+    public function find(SearchMoradorRequest $request)
     {
         if (empty($request->name) && empty($request->cidade)) {
             return redirect()->to(route('dashboard'));
         }
 
-        if (!empty($request->name) && !empty($request->cidade)) {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'cidade' => 'required|string|max:255',
-            ]);
-            $nome = $validated['name'];
-            $cidade = $validated['cidade'];
+        $validated = $request->validated();
+        $query = Morador::select(['id', 'nome_completo', 'cidade_atual'])->orderBy('nome_completo');
 
-            return view('dashboard', [
-                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
-                    ->where([
-                        ['nome_completo', 'ilike', $nome],
-                        ['cidade_atual', '=', $cidade],
-                    ])
-                    ->orderBy('nome_completo')
-                    ->paginate(12),
-            ]);
-        } elseif (!empty($request->name) && empty($request->cidade)) {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-            ]);
-
-            return view('dashboard', [
-                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
-                    ->where('nome_completo', 'ilike', '%' . $validated['name'] . '%')
-                    ->orderBy('nome_completo')
-                    ->paginate(12),
-            ]);
-        } else {
-            $validated = $request->validate(['cidade' => 'required|string|max:255']);
-
-            return view('dashboard', [
-                'moradores' => Morador::select(['id', 'nome_completo', 'cidade_atual'])
-                    ->where('cidade_atual', 'ilike', $validated['cidade'])
-                    ->orderBy('nome_completo')
-                    ->paginate(12),
-            ]);
+        if (!empty($validated['name'])) {
+            $query->where('nome_completo', 'ilike', '%' . $validated['name'] . '%');
         }
+
+        if (!empty($validated['cidade'])) {
+            $query->where('cidade_atual', 'ilike', '%' . $validated['cidade'] . '%');
+        }
+
+        $moradores = $query->paginate(12);
+        return view('dashboard', ['moradores' => $moradores]);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Summary of destroy
+     * @param \App\Models\Morador $morador
+     * @return mixed
+     * delete a morador from database
      */
-    public function destroy(int $id)
+    public function destroy(Morador $morador): mixed
     {
-        $morador = Morador::findOrFail($id);
         /**
          * Método para permitir que apenas usuários administradores da ong
          * que o morador pertence possam editar seu registro.
          * */
-        $ong = Ong::where('id_usuario', '=', Auth::id())
-            ->where('id', '=', $morador->id_ong)
-            ->exists();
-        if (!$ong) {
-            abort(401);
-        }
+
+        $this->authorize('isAdmin', $morador->id);
 
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');

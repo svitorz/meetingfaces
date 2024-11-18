@@ -28,11 +28,11 @@ class Comentario extends Model
 
     public function morador(): BelongsTo
     {
-        return $this->belongsTo(Morador::class);
+        return $this->belongsTo(Morador::class, 'id_morador');
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id_usuario');
     }
 }
