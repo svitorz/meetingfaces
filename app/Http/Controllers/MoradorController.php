@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchMoradorRequest;
 use App\Http\Requests\StoreMoradorRequest;
 use App\Models\Morador;
-use App\Models\Ong;
-use App\Policies\OngPolicy;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Service\MoradorService;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 
 class MoradorController extends Controller
@@ -129,18 +127,8 @@ class MoradorController extends Controller
             return redirect()->to(route('dashboard'));
         }
 
-        $validated = $request->validated();
-        $query = Morador::select(['id', 'nome_completo', 'cidade_atual'])->orderBy('nome_completo');
-
-        if (!empty($validated['name'])) {
-            $query->where('nome_completo', 'ilike', '%' . $validated['name'] . '%');
-        }
-
-        if (!empty($validated['cidade'])) {
-            $query->where('cidade_atual', 'ilike', '%' . $validated['cidade'] . '%');
-        }
-
-        $moradores = $query->paginate(12);
+        $service = new MoradorService;
+        $moradores = $service->search($request->validated());
         return view('dashboard', ['moradores' => $moradores]);
     }
 
@@ -156,9 +144,11 @@ class MoradorController extends Controller
          * Método para permitir que apenas usuários administradores da ong
          * que o morador pertence possam editar seu registro.
          * */
-
-        $this->authorize('isAdmin', $morador->id);
-
+        $user = Auth::user();
+        $ong = $morador->ong;
+        if ($ong->id_usuario !== $user->id) {
+            abort(403);
+        }
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
 

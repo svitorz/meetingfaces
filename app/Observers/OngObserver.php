@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Ong;
+use App\Models\User;
 
 class OngObserver
 {
@@ -11,42 +12,8 @@ class OngObserver
      */
     public function created(Ong $ong): void
     {
-        if (auth()->check()) {
-            $user = auth()->user();
-            $user->update(['permissao' => 'admin']);
-
-        }
-    }
-
-    /**
-     * Handle the Ong "updated" event.
-     */
-    public function updated(Ong $ong): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Ong "deleted" event.
-     */
-    public function deleted(Ong $ong): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Ong "restored" event.
-     */
-    public function restored(Ong $ong): void
-    {
-        //
-    }
-
-    /**
-     * Handle the Ong "force deleted" event.
-     */
-    public function forceDeleted(Ong $ong): void
-    {
-        //
+        $user = User::findOrFail($ong->id_usuario);
+        $user->permissao = "admin";
+        $user->save();
     }
 }
