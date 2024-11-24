@@ -1,6 +1,6 @@
 <div class="container-fluid">
     @if (session()->has('msg'))
-        <div class="mt-4 alert-success">
+        <div class="mt-4 alert alert-success">
             {{ session('msg') }}
         </div>
     @endif

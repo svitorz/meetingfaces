@@ -54,10 +54,10 @@ class MoradorController extends Controller
      */
     public function show(Morador $morador): mixed
     {
-        // Carregar os comentários aprovados junto com o morador
         $morador = $morador->load([
             'comentarios' => function ($query) {
-                $query->where('situacao', '=', 'aprovado');
+                $query->where('situacao', '=', 'aprovado')
+                    ->with(['user:id,nome,email']);
             }
         ]);
 
