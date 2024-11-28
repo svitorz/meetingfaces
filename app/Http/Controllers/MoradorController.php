@@ -82,9 +82,15 @@ class MoradorController extends Controller
      */
     public function update(StoreMoradorRequest $request, Morador $morador): RedirectResponse
     {
+        if (! Gate::allows('manterMorador', $morador)) {
+            abort(403);
+        }
+
         $service = new MoradorService;
 
+
         $validated = $request->validated();
+
 
         if ($request->hasFile('profile_picture')) {
             // Gera um nome único para o arquivo
@@ -140,15 +146,19 @@ class MoradorController extends Controller
      */
     public function destroy(Morador $morador): mixed
     {
+        if (! Gate::allows('manterMorador', $morador)) {
+            abort(403);
+        }
         /**
          * Método para permitir que apenas usuários administradores da ong
          * que o morador pertence possam editar seu registro.
-         * */
+         *
         $user = Auth::user();
         $ong = $morador->ong;
         if ($ong->id_usuario !== $user->id) {
             abort(403);
         }
+         */
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
 
