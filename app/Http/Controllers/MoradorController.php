@@ -14,6 +14,17 @@ use Illuminate\Http\RedirectResponse;
 class MoradorController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])
+            ->orderBy('nome_completo')
+            ->paginate(12);
+
+        return view('dashboard', ['moradores' => $moradores]);
+    }
+    /**
      * *
      * Método para cadastrar um morador de rua.
      * @param \App\Http\Requests\StoreMoradorRequest $request
@@ -54,13 +65,7 @@ class MoradorController extends Controller
      */
     public function show(Morador $morador): mixed
     {
-        $morador = $morador->load([
-            'comentarios' => function ($query) {
-                $query->where('situacao', '=', 'aprovado')
-                    ->with(['user:id,nome,email']);
-            }
-        ]);
-
+        $morador::whereRelation('comentarios', 'situacao', 'aprovado')->get();
         // Obtenha o usuário autenticado
         $user = Auth::user();
 
@@ -72,6 +77,17 @@ class MoradorController extends Controller
             'morador' => $morador,
             'isAdmin' => $isAdmin,
         ]);
+    }
+
+    public function find(SearchMoradorRequest $request)
+    {
+        if (empty($request->name) && empty($request->cidade)) {
+            return redirect()->to(route('dashboard'));
+        }
+
+        $service = new MoradorService;
+        $moradores = $service->search($request->validated());
+        return view('dashboard', ['moradores' => $moradores]);
     }
 
     /**
@@ -108,35 +124,14 @@ class MoradorController extends Controller
 
         $service->store($morador);
 
-        return to_route('morador.show', ['morador' => $morador])->with('msg', 'Morador cadastrado com sucesso!');
+        return to_route('morador.show', ['morador' => $morador])->with('msg', 'Cadastro de morador alterado com sucesso!');
     }
 
     public function edit(Morador $morador)
     {
         return view('livewire.morador.edit-morador', ['morador' => $morador]);
     }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $moradores = Morador::select(['id', 'nome_completo', 'cidade_atual'])
-            ->orderBy('nome_completo')
-            ->paginate(12);
 
-        return view('dashboard', ['moradores' => $moradores]);
-    }
-
-    public function find(SearchMoradorRequest $request)
-    {
-        if (empty($request->name) && empty($request->cidade)) {
-            return redirect()->to(route('dashboard'));
-        }
-
-        $service = new MoradorService;
-        $moradores = $service->search($request->validated());
-        return view('dashboard', ['moradores' => $moradores]);
-    }
 
     /**
      * Summary of destroy
@@ -149,16 +144,6 @@ class MoradorController extends Controller
         if (! Gate::allows('manterMorador', $morador)) {
             abort(403);
         }
-        /**
-         * Método para permitir que apenas usuários administradores da ong
-         * que o morador pertence possam editar seu registro.
-         *
-        $user = Auth::user();
-        $ong = $morador->ong;
-        if ($ong->id_usuario !== $user->id) {
-            abort(403);
-        }
-         */
         $morador->delete();
         session()->flash('msg', 'Cadastro de morador excluído com sucesso!');
 

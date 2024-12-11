@@ -92,7 +92,6 @@ class CreateOng extends Component
             $this->cidade = $data['city'];
             $this->estado = $data['state'];
             $this->pais = 'Brasil';
-
         } else {
             session()->flash('msg', 'CEP inválido');
         }
@@ -156,7 +155,7 @@ class CreateOng extends Component
         ]);
         session()->flash('msg', 'Ong atualizada com sucesso!');
 
-        return $this->redirect('/ongs/dashboard');
+        return $this->redirect('/');
     }
 
     public function store()
@@ -175,7 +174,6 @@ class CreateOng extends Component
         session()->flash('msg', 'Ong cadastrada com sucesso!');
 
         return $this->redirect('/ongs/dashboard');
-
     }
 
     public function render()

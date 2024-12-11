@@ -8,7 +8,11 @@
         @yield('title', 'Meeting Faces')
     </title>
     <link rel="icon" href="{{asset('img/logo1.png')}}" type="image/icon type=" image/x-icon">
-    @vite(['resources/sass/app.scss','resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+    'resources/sass/app.scss',
+    'resources/css/app.css',
+    'resources/js/app.js'
+    ])
     @livewireStyles
     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">

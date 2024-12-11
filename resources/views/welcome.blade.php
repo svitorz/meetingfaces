@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    rel="stylesheet">
   <title>{{config('APP_NAME','Meeting Faces')}}</title>
   @vite([
-            'resources/sass/app.scss',
-            'resources/css/app.css',
-            'resources/js/app.js',
-        ])
+  'resources/sass/app.scss',
+  //'resources/css/app.css',
+  'resources/js/app.js',
+  ])
   <style>
     .ly {
       font-family: 'Bitter', cursive;
@@ -21,40 +22,40 @@
 
 <body class="ly">
   <livewire:layout.navigation />
-<div id="carouselExample" class="carousel slide">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
+  <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
         <img src="{{ asset('img/man_in_brazil.jpg')}}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h2>População em situação de rua supera 281,4 mil pessoas no Brasil</h2>
-                <p>Estimativa divulgada pelo Ipea aponta crescimento de 38% desse segmento, durante a pandemia de Covid-19
-            </div>
-    </div>
-    <div class="carousel-item">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>População em situação de rua supera 281,4 mil pessoas no Brasil</h2>
+          <p>Estimativa divulgada pelo Ipea aponta crescimento de 38% desse segmento, durante a pandemia de Covid-19
+        </div>
+      </div>
+      <div class="carousel-item">
         <img src="{{ asset('img/homeless.webp')}}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h2>Ipea: população em situação de rua no Brasil supera 281 mil</h2>
-                <p>Em dez anos, esse segmento vulnerável cresceu 211%</p>
-            </div>
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Ipea: população em situação de rua no Brasil supera 281 mil</h2>
+          <p>Em dez anos, esse segmento vulnerável cresceu 211%</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{{asset('img/canada_homeless.webp')}}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h2>Um estudo canadense doou US$ 7.500 para moradores de rua</h2>
+          <p>Os resultados mostram o poder das transferências monetárias na redução dos sem-abrigo.</p>
+        </div>
+      </div>
     </div>
-    <div class="carousel-item">
-       <img src="{{asset('img/canada_homeless.webp')}}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h2>Um estudo canadense doou US$ 7.500 para moradores de rua</h2>
-                <p>Os resultados mostram o poder das transferências monetárias na redução dos sem-abrigo.</p>
-            </div>
-    </div>
-    </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-  <div class="container-fluidbg-white text-dark p-5 mt-3 ">
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="container-fluid bg-white text-dark p-5 mt-3 ">
     <h2 class="animate__animated animate__slideInLeft mt-5 text-center">
       O que é o Meeting Faces?
     </h2>
@@ -72,7 +73,7 @@
       </p>
     </div>
   </div>
-  <div class="container-fluid flex justify-content-center align-items-center ">
+  <div class="container-fluid d-flex justify-content-around align-items-center ">
     <div class="row gx-6">
       <div class="col-lg-4 col-md-12 mx-auto">
         <div class="card" style="width: 18rem;">
@@ -96,7 +97,7 @@
       </div>
 
       <div class="col-lg-4 col-md-12 mx-auto">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; ">
           <h3 class="card-title text-center pb-3">Doe às Instituições</h3>
           <img class="card-img-top img-fluid " src="{{asset('img/coracao-de-maos-dadas.png')}}"
             alt="uma mão recebendo um coração" />

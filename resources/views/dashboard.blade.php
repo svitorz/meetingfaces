@@ -22,7 +22,7 @@
     </div>
     @endif
     <livewire:morador.search-box />
-    <div class="container-fluid">
+    <div class="container w-full h-full">
         <div class="mx-auto d-block">
             <div class="row">
                 <div class="lg:col-4 md:col-3 sm:col-2">

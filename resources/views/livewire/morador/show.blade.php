@@ -81,21 +81,21 @@
                 </div>
             </div>
         </div>
+        @if(isset($morador->comentarios)&& sizeof($morador->comentarios)>0)
         <div class="py-4">
-            @if (isset($morador->comentarios))
-            <section class="tw-py-8 tw-bg-gray-100 dark:tw-bg-gray-900">
+            <section class="tw-py-8 tw-bg-gray-100">
                 <div class="tw-max-w-4xl tw-mx-auto tw-px-4 tw-sm:px-6 tw-lg:px-8">
-                    <h2 class="tw-text-2xl tw-font-bold tw-text-gray-800 dark:tw-text-gray-200 tw-mb-6">Comentários</h2>
+                    <h2 class="tw-text-2xl tw-font-bold tw-text-gray-800 tw-mb-6">Comentários</h2>
                     <div class="tw-space-y-4">
                         @foreach($morador->comentarios as $comentario)
-                        <div class="tw-bg-white dark:tw-bg-gray-800 tw-shadow-sm tw-rounded-lg tw-px-6 tw-py-4">
+                        <div class="tw-bg-white tw-shadow-sm tw-rounded-lg tw-px-6 tw-py-4">
                             <div class="tw-flex tw-items-center tw-mb-2">
-                                <div class="tw-text-sm tw-font-semibold tw-text-gray-800 dark:tw-text-gray-200">
+                                <div class="tw-text-sm tw-font-semibold tw-text-gray-800 ">
                                     {{$comentario->user->nome}}, </div>
                                 <span
-                                    class="tw-ml-2 tw-text-sm tw-text-gray-500 dark:tw-text-gray-400">{{$comentario->created_at}}</span>
+                                    class="tw-ml-2 tw-text-sm tw-text-gray-500">{{$comentario->created_at}}</span>
                             </div>
-                            <p class="tw-text-sm tw-text-gray-600 dark:tw-text-gray-300">
+                            <p class="tw-text-sm tw-text-gray-600">
                                 {{$comentario->comentario}}
                             </p>
                         </div>
@@ -103,6 +103,6 @@
                     </div>
                 </div>
             </section>
-            @endif
         </div>
+        @endif
         @endsection
