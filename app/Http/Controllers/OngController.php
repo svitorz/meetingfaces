@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Ong;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
 
 class OngController extends Controller
 {
@@ -21,19 +20,16 @@ class OngController extends Controller
      */
     public function destroy(Ong $ong)
     {
-        $authUser = Auth::user();
-        $ong = Ong::findOrFail($ong->id);
-
-        if ($authUser->id != $ong->id_usuario) {
-            return abort(401);
+        if (!Gate::allows('manterOng', $ong)) {
+            abort(401);
         }
 
+        $ong->user->permissao = "comum";
+        $ong->user->save();
         $ong->delete();
-        $user = User::findOrFail($authUser->id);
-        $user->permissao = 'comum';
-        $user->save();
+
 
         session()->flash('msg', 'Ong deletada com sucesso!');
-        return redirect()->route('dashboard');
+        return redirect()->to('/');
     }
 }

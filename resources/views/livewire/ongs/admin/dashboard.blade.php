@@ -51,12 +51,36 @@
                         </a>
                     </li>
                     <li class="border-bottom py-5 flex">
-                        <form action="{{ route('ongs.destroy', ['ong'=>$ong->id]) }}" method="POST">
+                        </script>
+                        <form method="POST" action="{{ route('ongs.destroy', ['ong'=>$ong->id]) }}">
                             @csrf
-                            <button type="submit" class="flex text-danger text-decoration-none" id="link-item">
+                            <button class="flex text-danger text-decoration-none" id="link-item" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" type="button">
                                 <x-heroicon-s-trash style="width: 20px; height: 20px;" />
                                 Excluir ONG
                             </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Exclusão de ONG.</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Deseja deletar o cadastro de sua ONG? Todas as pessoas cadastradas serão
+                                            deletadas e esta ação não pode ser revertida.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-danger">Excluir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </li>
                 </div>
@@ -64,6 +88,7 @@
         </div>
     </div>
     <div class="col-lg-10 col-md-8 col-sm-6">
+
         @if($this->component)
         @livewire("ongs.admin.moradores")
         @else

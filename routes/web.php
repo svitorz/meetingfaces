@@ -69,7 +69,7 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
     Route::put('/update/{morador}', [MoradorController::class, 'update'])
         ->name('morador.update');
 
-    Route::get('/destroy/{morador}', [MoradorController::class, 'destroy'])
+    Route::post('/destroy/{morador}', [MoradorController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
         ->name('morador.destroy');
 
