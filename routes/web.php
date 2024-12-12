@@ -4,8 +4,6 @@ use App\Http\Controllers\MoradorController;
 use App\Http\Controllers\OngController;
 use App\Http\Middleware\UsuarioTemPermissao;
 use App\Livewire\Morador\CreateMorador;
-use App\Livewire\Morador\ListarTodos;
-use App\Livewire\Morador\Show;
 use App\Livewire\Ongs\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Ongs\CreateOng;
 use App\Livewire\Ongs\Doacao;
@@ -35,7 +33,7 @@ Route::prefix('/ongs')->group(function () {
         ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
         ->name('ongs.store');
 
-    Route::get('/edit/{id}', CreateOng::class)
+    Route::get('/edit/{ong}', CreateOng::class)
         ->middleware(['auth', UsuarioTemPermissao::class . ':admin'])
         ->name('ongs.edit');
 
@@ -45,7 +43,7 @@ Route::prefix('/ongs')->group(function () {
 
     Route::get('/doacao', Doacao::class)->name('ongs.doacao');
 
-    Route::get('/show/{id}', \App\Livewire\Ongs\Show::class)->middleware(['auth'])->name('ongs.show');
+    Route::get('/show/{ong}', [\App\Http\Controllers\OngController::class, 'show'])->middleware(['auth'])->name('ongs.show');
 
     Route::post('/destroy/{ong}', [OngController::class, 'destroy'])
         ->middleware(UsuarioTemPermissao::class . ':admin')
@@ -63,10 +61,6 @@ Route::prefix('/moradores')->middleware('auth')->group(function () {
 
     Route::get('/show/{morador}', [MoradorController::class, 'show'])
         ->name('morador.show');
-
-    Route::get('/all', ListarTodos::class)
-        ->middleware(UsuarioTemPermissao::class . ':admin')
-        ->name('morador.all');
 
     Route::get('/edit/{morador}', [MoradorController::class, 'edit'])
         ->middleware(UsuarioTemPermissao::class . ':admin')

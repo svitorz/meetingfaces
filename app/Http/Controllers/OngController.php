@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Morador;
 use App\Models\Ong;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class OngController extends Controller
 {
+
+    public function show(Ong $ong): View
+    {
+        return view('livewire.ongs.show', ['ong' => $ong]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

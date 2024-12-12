@@ -37,15 +37,15 @@
                 <h2 class="text-primary">Configurações</h2>
                 <div class="ms-4">
                     <li class="border-bottom py-5">
-                        <a href="{{route('ongs.show',['id'=>$ong->id])}}"
+                        <a href="{{route('ongs.show',['ong'=>$ong->id])}}"
                             class="text-black text-decoration-none flex align-items-center">
                             <x-bxs-show style="width: 20px; height: 20px;" />
                             Vizualizar sua ONG
                         </a>
                     </li>
                     <li class="border-bottom py-5">
-                        <a href="{{route('ongs.edit',['id' => $ong->id])}}" class="text-black text-decoration-none flex"
-                            id="link-item">
+                        <a href="{{route('ongs.edit',['ong' => $ong->id])}}"
+                            class="text-black text-decoration-none flex" id="link-item">
                             <x-feathericon-edit style="width: 20px; height: 20px;" />
                             Editar ONG
                         </a>

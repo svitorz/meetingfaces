@@ -98,7 +98,7 @@ class MoradorController extends Controller
      */
     public function update(StoreMoradorRequest $request, Morador $morador): RedirectResponse
     {
-        if (! Gate::allows('manterMorador', $morador)) {
+        if (!Gate::allows('manterMorador', $morador)) {
             abort(403);
         }
 
@@ -129,6 +129,9 @@ class MoradorController extends Controller
 
     public function edit(Morador $morador)
     {
+        if (!Gate::allows('manterMorador', $morador)) {
+            abort(403);
+        }
         return view('livewire.morador.edit-morador', ['morador' => $morador]);
     }
 
@@ -141,7 +144,7 @@ class MoradorController extends Controller
      */
     public function destroy(Morador $morador): mixed
     {
-        if (! Gate::allows('manterMorador', $morador)) {
+        if (!Gate::allows('manterMorador', $morador)) {
             abort(403);
         }
         $morador->delete();

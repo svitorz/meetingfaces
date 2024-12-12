@@ -9,10 +9,6 @@ use Livewire\Component;
 
 class Moradores extends Component
 {
-    // public $moradores;
-    // public function mount()
-    // {
-    // }
     public function render()
     {
         $authUser = Auth::user()->id;

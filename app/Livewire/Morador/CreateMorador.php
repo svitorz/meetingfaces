@@ -15,11 +15,6 @@ class CreateMorador extends Component
 {
     public function render()
     {
-        $user = User::find(Auth::id());
-        if ($user->permissao != 'admin') {
-            return abort(401);
-        }
-
         return view('livewire.morador.create')
             ->extends('templates.template')
             ->slot('content');
