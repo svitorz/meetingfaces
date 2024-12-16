@@ -1,3 +1,6 @@
+@extends('templates.template')
+
+@section('content')
 <div class="ly d-flex align-items-center py-4 bg-body-white">
     {{-- session messages --}}
     <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -9,11 +12,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <form class="space-y-2 mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded"
-            wire:submit.prevent="{{ $this->editing ? 'update' : 'store' }}" method="POST">
-            @if($this->editing)
-            <input type="hidden" name="id_ong" id="id_ong" wire:model="id_ong" />
-            @endif
+        <form class="space-y-2 mx-auto d-block p-5 mt-5 bg-white shadow-lg mb-5 bg-body-tertiary rounded" @if($editing)
+            action="{{route('ongs.update',['ong'=>$ong->id])}}" @else action="{{route('ongs.store')}}" method="POST">
             @csrf
             <div class="row">
 
@@ -26,8 +26,8 @@
 
                 <div class=" mb-3 col-lg-3 col-md-12  ">
                     <x-input-label for="sigla" :value="__('Sigla')" />
-                    <x-text-input placeholder="IEM" wire:model="sigla" id="sigla" class="tw-block tw-mt-1 tw-w-full" type="text"
-                        name="sigla" required />
+                    <x-text-input placeholder="IEM" wire:model="sigla" id="sigla" class="tw-block tw-mt-1 tw-w-full"
+                        type="text" name="sigla" required />
                     <x-input-error :messages="$errors->get('sigla')" class="mt-2" />
                 </div>
 
@@ -42,14 +42,15 @@
                 </div>
                 <div class=" mb-3 col-lg-3 col-md-12  ">
                     <x-input-label for="data_fundacao" :value="__('Data de fundação')" />
-                    <x-text-input wire:model="data_fundacao" id="data_fundacao" class="tw-block tw-mt-1 tw-w-full" type="date"
-                        name="data_fundacao" required />
+                    <x-text-input wire:model="data_fundacao" id="data_fundacao" class="tw-block tw-mt-1 tw-w-full"
+                        type="date" name="data_fundacao" required />
                     <x-input-error :messages="$errors->get('data_fundacao')" class="mt-2" />
                 </div>
                 <div class=" mb-3 col-12">
                     <x-input-label for="descricao" :value="__('Descrição')" />
                     <textarea wire:model="descricao" placeholder="Descreva em até 1024 caracteres a sua organização."
-                        name="descricao" id="descricao" class="tw-block tw-mt-1 tw-w-full form-control" required></textarea>
+                        name="descricao" id="descricao" class="tw-block tw-mt-1 tw-w-full form-control"
+                        required></textarea>
                     <x-input-error :messages="$errors->get('descricao')" class="mt-2" />
                 </div>
             </div>
@@ -58,7 +59,8 @@
                 <div class=" mb-3 col-lg-4 col-md-12  ">
                     <x-input-label for="telefone" :value="__('Telefone')" />
                     <x-text-input placeholder="(99)99999-9999" wire:model="telefone" id="telefone"
-                        class="tw-block tw-mt-1 tw-w-full" type="text" x-mask="(99)99999-9999" name="telefone" required />
+                        class="tw-block tw-mt-1 tw-w-full" type="text" x-mask="(99)99999-9999" name="telefone"
+                        required />
                     <x-input-error :messages="$errors->get('telefone')" class="mt-2" />
                 </div>
 
@@ -70,8 +72,8 @@
                 </div>
                 <div class=" mb-3 col-lg-4 col-md-12  ">
                     <x-input-label for="url" :value="__('Url do site (se houver)')" />
-                    <x-text-input placeholder="organizacao.com.br" wire:model="url" id="url" class="tw-block tw-mt-1 tw-w-full"
-                        type="url" name="url" />
+                    <x-text-input placeholder="organizacao.com.br" wire:model="url" id="url"
+                        class="tw-block tw-mt-1 tw-w-full" type="url" name="url" />
                     <x-input-error :messages="$errors->get('url')" class="mt-2" />
                 </div>
             </div>
@@ -112,31 +114,31 @@
 
                 <div class=" mb-3 col-lg-2 col-md-12 ">
                     <x-input-label for="numero" :value="__('Número')" />
-                    <x-text-input wire:model="numero" id="numero" class="tw-block tw-mt-1 tw-w-full" type="number" name="numero"
-                        placeholder="123" />
+                    <x-text-input wire:model="numero" id="numero" class="tw-block tw-mt-1 tw-w-full" type="number"
+                        name="numero" placeholder="123" />
                     <x-input-error :messages="$errors->get('numero')" class="mt-2" />
                 </div>
 
 
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="bairro" :value="__('Bairro')" />
-                    <x-text-input wire:model="bairro" id="bairro" class="tw-block tw-mt-1 tw-w-full" type="text" name="bairro"
-                        placeholder="Centro" />
+                    <x-text-input wire:model="bairro" id="bairro" class="tw-block tw-mt-1 tw-w-full" type="text"
+                        name="bairro" placeholder="Centro" />
                     <x-input-error :messages="$errors->get('bairro')" class="mt-2" />
                 </div>
             </div>
             <div class="row">
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="cidade" :value="__('Cidade')" />
-                    <x-text-input wire:model="cidade" id="cidade" class="tw-block tw-mt-1 tw-w-full" type="text" name="cidade"
-                        placeholder="Campinas" />
+                    <x-text-input wire:model="cidade" id="cidade" class="tw-block tw-mt-1 tw-w-full" type="text"
+                        name="cidade" placeholder="Campinas" />
                     <x-input-error :messages="$errors->get('cidade')" class="mt-2" />
                 </div>
 
                 <div class=" mb-3 col-lg-4 col-md-12 ">
                     <x-input-label for="estado" :value="__('Estado')" />
-                    <x-text-input wire:model="estado" id="estado" class="tw-block tw-mt-1 tw-w-full" type="text" name="estado"
-                        placeholder="São Paulo" />
+                    <x-text-input wire:model="estado" id="estado" class="tw-block tw-mt-1 tw-w-full" type="text"
+                        name="estado" placeholder="São Paulo" />
                     <x-input-error :messages="$errors->get('estado')" class="mt-2" />
                 </div>
 
@@ -151,7 +153,7 @@
             <div class="col mt-5">
 
                 <button class="btn btn-outline-dark w-20 py-2 col-6 d-grid gap-2 mx-auto" type="submit">
-                    @if($this->editing)
+                    @if($editing)
                     Editar
                     @else
                     Cadastrar
@@ -163,3 +165,4 @@
 
     </div>
 </div>
+@endsection

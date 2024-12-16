@@ -9,7 +9,16 @@ use Illuminate\Contracts\View\View;
 
 class OngController extends Controller
 {
+    public function create()
+    {
+        return view('livewire.ongs.create-ong', ['editing' => false]);
+    }
 
+    /**
+     * Summary of show
+     * @param \App\Models\Ong $ong
+     * @return \Illuminate\Contracts\View\View
+     */
     public function show(Ong $ong): View
     {
         return view('livewire.ongs.show', ['ong' => $ong]);

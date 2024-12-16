@@ -27,7 +27,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::prefix('/ongs')->group(function () {
-    Route::get('/create', CreateOng::class)->middleware(['auth', UsuarioTemPermissao::class . ':comum'])->name('ongs.create');
+    Route::get('/create', [App\Http\Controllers\OngController::class, 'create'])->middleware(['auth', UsuarioTemPermissao::class . ':comum'])->name('ongs.create');
 
     Route::post('/store', [OngController::class, 'store'])
         ->middleware(['auth', UsuarioTemPermissao::class . ':comum'])
